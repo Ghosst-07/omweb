@@ -123,9 +123,6 @@ export default function Home() {
           
           <div className="relative w-[300px] sm:w-[320px] aspect-[9/19.5] rounded-[52px] border-4 border-slate-800/90 bg-slate-900 p-2.5 shadow-xl shadow-om-500/5 z-10 animate-float">
             
-            {/* Dynamic Island */}
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 w-28 h-6 bg-black rounded-full z-30" />
-            
             {/* Screen Content Wrapper */}
             <div className="relative w-full h-full rounded-[42px] overflow-hidden border border-slate-700/20">
               
@@ -347,6 +344,133 @@ export default function Home() {
               <p className="text-slate-600 text-sm leading-relaxed">
                 Log pain metrics, energy variations, and sleep parameters daily. Get structured graphs that summarize weekly symptom maps to share directly with doctors.
               </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* OM Assistant Dedicated Section */}
+      <section className="relative z-10 py-24 bg-om-900 border-b border-om-800">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="flex flex-col lg:flex-row items-center gap-16">
+            
+            {/* Left Column: Interactive Chat Mockup */}
+            <div className="flex-1 w-full max-w-md mx-auto bg-white rounded-3xl border border-slate-200 shadow-md p-6 flex flex-col h-[480px] justify-between">
+              {/* Header of Chat Mockup */}
+              <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
+                <div className="w-10 h-10 rounded-full bg-om-400/10 flex items-center justify-center text-om-400">
+                  <svg className="w-5.5 h-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <rect x="3" y="8" width="18" height="12" rx="2" />
+                    <path d="M12 8V4H8" />
+                    <circle cx="8" cy="13" r="1" />
+                    <circle cx="16" cy="13" r="1" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="font-display font-bold text-slate-800 text-sm">OM Assistant</h4>
+                  <span className="text-[10px] text-emerald-600 font-bold uppercase tracking-wider flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    Active Companion
+                  </span>
+                </div>
+              </div>
+
+              {/* Chat bubbles */}
+              <div className="flex-1 flex flex-col gap-4 py-4 overflow-y-auto text-xs">
+                {/* User Message */}
+                <div className="self-end bg-slate-100 text-slate-700 px-4 py-3 rounded-2xl rounded-tr-none max-w-[85%]">
+                  I&apos;m feeling very fatigued after my chemo session yesterday. Is this normal?
+                </div>
+
+                {/* Assistant Message */}
+                <div className="self-start bg-om-800/40 text-slate-700 px-4 py-3 rounded-2xl rounded-tl-none max-w-[85%] border border-om-700/10">
+                  <p className="font-semibold text-slate-800 mb-1.5">Yes, fatigue is very common.</p>
+                  <p className="mb-2">Your body is working hard to heal after therapy. Here are a few gentle practices to help:</p>
+                  <ul className="list-disc pl-4 flex flex-col gap-1.5">
+                    <li>Take brief 15-minute rests rather than long afternoon naps.</li>
+                    <li>Drink small, frequent sips of water, coconut water, or warm broths.</li>
+                    <li>Try a soft 5-minute breathing layout in our Meditate section.</li>
+                  </ul>
+                </div>
+
+                {/* User Message */}
+                <div className="self-end bg-slate-100 text-slate-700 px-4 py-3 rounded-2xl rounded-tr-none max-w-[85%]">
+                  Thanks. Can you suggest a breathing guide?
+                </div>
+
+                {/* Assistant Message */}
+                <div className="self-start bg-om-800/40 text-slate-700 px-4 py-3 rounded-2xl rounded-tl-none max-w-[85%] border border-om-700/10">
+                  I suggest our <span className="font-semibold text-om-100 font-display">5-Minute Box Breathing</span> guide. It lowers heart rates and settles active stress. Would you like to launch it?
+                </div>
+              </div>
+
+              {/* Chat Input Bar mockup */}
+              <div className="border-t border-slate-100 pt-4 flex items-center gap-3">
+                <div className="flex-1 bg-slate-50 border border-slate-200 rounded-full px-4.5 py-2.5 text-slate-400 text-xs flex items-center">
+                  Ask about side-effects, nutrition, or mindfulness...
+                </div>
+                <button className="w-10 h-10 rounded-full bg-om-400 flex items-center justify-center text-white shadow-sm hover:bg-om-300 transition-colors">
+                  <svg className="w-4 h-4 rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            {/* Right Column: Explanations */}
+            <div className="flex-1">
+              <span className="text-xs uppercase tracking-widest text-om-400 font-bold">Intelligent Support</span>
+              <h2 className="font-display font-black text-4xl sm:text-5xl text-slate-900 mt-2 mb-6">
+                Your Caring 24/7 AI Companion
+              </h2>
+              <p className="text-slate-600 leading-relaxed mb-8">
+                The OM Assistant is built to walk with you through every phase of your cancer recovery journey. It provides instantaneous, clinically aligned answers to help you navigate symptoms, emotional fatigue, and treatment schedules.
+              </p>
+
+              <div className="space-y-6">
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-om-400/10 flex items-center justify-center text-om-400 flex-shrink-0">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-display font-bold text-lg text-slate-900 mb-1">Tailored Oncology Knowledge</h3>
+                    <p className="text-slate-500 text-sm leading-relaxed">
+                      Equipped with support models focused exclusively on cancer recovery, chemotherapy side-effects, and daily comfort.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-accent-cyan/10 flex items-center justify-center text-accent-cyan flex-shrink-0">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-display font-bold text-lg text-slate-900 mb-1">Confidential & Empathetic</h3>
+                    <p className="text-slate-500 text-sm leading-relaxed">
+                      Every conversation is fully encrypted and private. The tone is designed by oncology counselors to offer calm, zero-judgment assurance.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-accent-yellow/10 flex items-center justify-center text-accent-yellow flex-shrink-0">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2-8H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-display font-bold text-lg text-slate-900 mb-1">Export for Medical Consultation</h3>
+                    <p className="text-slate-500 text-sm leading-relaxed">
+                      Log your symptom concerns in the chat and export a formatted summary report to share with your doctors during your next clinical appointment.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
 
           </div>
