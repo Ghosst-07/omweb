@@ -2,27 +2,12 @@
 
 import { useState, useEffect } from "react";
 
-const LogoText = ({ className = "text-[28px]" }) => (
-  <div className={`flex flex-col justify-center items-start ${className}`}>
-    <span
-      className="font-serif font-black text-om-400 leading-none uppercase block"
-      style={{ fontSize: '1em', letterSpacing: '0.02em' }}
-    >
-      ONCOLOGY MITRA
-    </span>
-    <span
-      className="uppercase text-slate-500 font-bold leading-none block"
-      style={{ fontSize: '0.41em', letterSpacing: '0.38em', marginTop: '0.25em' }}
-    >
-      WE WALK WITH YOU
-    </span>
-  </div>
-);
-
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [phoneScreen, setPhoneScreen] = useState("home");
+  const [selectedMood, setSelectedMood] = useState(null);
 
   const handleWaitlistSubmit = (e) => {
     e.preventDefault();
@@ -48,7 +33,7 @@ export default function Home() {
           <img src="/logo.png" alt="OM Logo" className="w-full h-full object-cover" />
         </div>
         <div className="mt-6 flex flex-col items-center">
-          <LogoText className="text-3xl" />
+          <img src="/logo-text.png" alt="Oncology Mitra" className="h-11 w-auto object-contain" />
           <div className="w-48 h-1 bg-om-900 rounded-full overflow-hidden mt-4">
             <div className="h-full bg-om-400 rounded-full animate-progress" />
           </div>
@@ -60,9 +45,9 @@ export default function Home() {
         <div className="mx-auto max-w-[1400px] px-6 h-28 flex items-center justify-between">
           <div className="flex items-center gap-5">
             <div className="w-20 h-20 rounded-full overflow-hidden border border-om-400/20 bg-white flex-shrink-0 shadow-sm">
-              <img src="/logo.png" alt="OM Logo" className="w-full h-full object-cover scale-[1.15]" />
+              <img src="/logo.png" alt="OM Logo" className="w-full h-full object-cover" />
             </div>
-            <LogoText className="text-2xl sm:text-[28px]" />
+            <img src="/logo-text.png" alt="Oncology Mitra" className="h-10 w-auto object-contain" />
           </div>
 
           {/* Navigation Links */}
@@ -117,30 +102,30 @@ export default function Home() {
               </p>
 
               {/* Horizontal Features */}
-              <div className="flex flex-wrap items-center gap-x-6 gap-y-4 mt-8 mb-10">
+              <div className="flex items-center gap-6 mt-8 mb-10">
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-full bg-om-900 flex items-center justify-center text-om-400">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                   </div>
-                  <span className="text-[10px] font-bold text-slate-800 leading-tight whitespace-nowrap">Certified<br />Onco Coaches</span>
+                  <span className="text-[10px] font-bold text-slate-800 leading-tight w-16">Certified<br />Onco Coaches</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-full bg-om-900 flex items-center justify-center text-om-400">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
                   </div>
-                  <span className="text-[10px] font-bold text-slate-800 leading-tight whitespace-nowrap">Holistic<br />Wellness</span>
+                  <span className="text-[10px] font-bold text-slate-800 leading-tight w-16">Holistic<br />Wellness</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-full bg-om-900 flex items-center justify-center text-om-400">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                   </div>
-                  <span className="text-[10px] font-bold text-slate-800 leading-tight whitespace-nowrap">Compassionate<br />Community</span>
+                  <span className="text-[10px] font-bold text-slate-800 leading-tight w-20">Compassionate<br />Community</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-8 rounded-full bg-om-900 flex items-center justify-center text-om-400">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                   </div>
-                  <span className="text-[10px] font-bold text-slate-800 leading-tight whitespace-nowrap">Safe. Trusted.<br />Confidential.</span>
+                  <span className="text-[10px] font-bold text-slate-800 leading-tight w-20">Safe. Trusted.<br />Confidential.</span>
                 </div>
               </div>
 
@@ -167,56 +152,253 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Vertical Dark Purple Overlay Card */}
-              <div className="absolute right-0 top-1/2 -translate-y-1/2 bg-[#422C7C] w-[300px] rounded-l-2xl shadow-2xl z-10 p-8 pl-12 flex flex-col text-white transform transition-transform duration-500 translate-x-[88%] hover:translate-x-0 cursor-pointer">
-                {/* Drag Indicator */}
-                <div className="absolute left-4 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1.5 opacity-60">
-                  <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+              {/* iPhone Mockup Sliding Card */}
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 z-20 flex items-center transition-all duration-500 transform translate-x-[92%] hover:translate-x-[-15px] group">
+                {/* Pull / Slide Indicator Handle */}
+                <div className="flex flex-col items-center gap-1.5 opacity-80 bg-slate-900/80 p-2.5 rounded-l-xl text-white mr-[-1px] shadow-lg border border-r-0 border-white/10 cursor-pointer">
+                  <svg className="w-5 h-5 animate-pulse text-om-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" /></svg>
+                  <span className="text-[9px] font-black uppercase tracking-widest [writing-mode:vertical-lr] rotate-180 text-white/90">OM App</span>
                 </div>
 
-                <div className="flex justify-center mb-6">
-                  <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center shadow-md border border-white/20">
-                    <img src="/logo.png" alt="OM Logo" className="w-full h-full object-cover scale-[1.15]" />
+                {/* iPhone Frame */}
+                <div className="w-[280px] h-[550px] bg-slate-950 rounded-[44px] p-2.5 shadow-2xl border-4 border-slate-800 flex-shrink-0 relative overflow-hidden flex flex-col justify-between">
+                  {/* Dynamic Island */}
+                  <div className="absolute top-3.5 left-1/2 -translate-x-1/2 w-24 h-4 bg-slate-950 rounded-full z-30 flex items-center border border-slate-900">
+                    <div className="w-1.5 h-1.5 bg-[#0f172a] rounded-full border border-blue-900/40 ml-auto mr-2"></div>
                   </div>
-                </div>
-                <h3 className="text-center font-serif font-bold text-xl mb-8 leading-tight">Support Beyond<br />Treatment</h3>
 
-                <div className="flex flex-col gap-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0">
-                      <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" /></svg>
+                  {/* App Screen Container (Light Design) */}
+                  <div className="w-full h-full bg-slate-50 rounded-[34px] overflow-hidden p-5 pt-8 flex flex-col text-slate-800 relative">
+                    
+                    {/* Status Bar */}
+                    <div className="flex justify-between items-center text-[9px] text-slate-500 font-bold px-1.5 mb-3">
+                      <span>9:41</span>
+                      <div className="flex items-center gap-1">
+                        <svg className="w-3 h-3 fill-current text-slate-500" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.53c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" /></svg>
+                        <svg className="w-2.5 h-2.5 fill-current text-slate-500" viewBox="0 0 24 24"><path d="M17 5H3a2 2 0 00-2 2v10a2 2 0 002 2h14a2 2 0 002-2V7a2 2 0 00-2-2z" /></svg>
+                      </div>
                     </div>
-                    <div className="flex flex-col mt-0.5">
-                      <span className="font-bold text-sm">Mind</span>
-                      <span className="text-[10.5px] text-white/70">We calm your worries</span>
+
+                    {/* APP SCREENS */}
+
+                    {/* Screen 1: Home Screen */}
+                    {phoneScreen === "home" && (
+                      <div className="flex flex-col flex-1">
+                        {/* App Logo & Title */}
+                        <div className="flex items-center gap-1.5 justify-center mb-3">
+                          <img src="/logo.png" alt="OM Logo" className="w-6 h-6 object-cover scale-[1.15] rounded-full" />
+                          <span className="font-serif font-black text-xs text-om-400">Oncology Mitra</span>
+                        </div>
+
+                        {/* Daily checkin card */}
+                        <div className="bg-gradient-to-r from-om-400 to-[#2a1c52] rounded-xl p-3 text-white mb-3 text-left">
+                          <div className="text-[7px] font-bold text-white/70 uppercase tracking-wider">Daily Wellness</div>
+                          <div className="font-bold text-[11px] mt-0.5">Hello, Friend 👋</div>
+                          <div className="text-[8px] mt-0.5 opacity-90">Daily plan: 60% completed</div>
+                        </div>
+
+                        {/* Menu Options */}
+                        <div className="flex flex-col gap-2 flex-1">
+                          <button onClick={() => setPhoneScreen("mind")} className="flex items-center justify-between bg-white p-2 rounded-lg shadow-xs border border-slate-100 text-left hover:bg-slate-100 transition-colors">
+                            <div className="flex items-center gap-2">
+                              <div className="w-5 h-5 rounded-full bg-purple-55 flex items-center justify-center text-om-400"><svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" /></svg></div>
+                              <div className="flex flex-col leading-tight"><span className="text-[10px] font-bold text-slate-800">Mind</span><span className="text-[7.5px] text-slate-400">Meditation & recovery</span></div>
+                            </div>
+                            <span className="text-slate-300 text-xs font-bold">&rarr;</span>
+                          </button>
+
+                          <button onClick={() => setPhoneScreen("body")} className="flex items-center justify-between bg-white p-2 rounded-lg shadow-xs border border-slate-100 text-left hover:bg-slate-100 transition-colors">
+                            <div className="flex items-center gap-2">
+                              <div className="w-5 h-5 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-500"><svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                              <div className="flex flex-col leading-tight"><span className="text-[10px] font-bold text-slate-800">Body</span><span className="text-[7.5px] text-slate-400">Nutrition & yoga</span></div>
+                            </div>
+                            <span className="text-slate-300 text-xs font-bold">&rarr;</span>
+                          </button>
+
+                          <button onClick={() => setPhoneScreen("emotions")} className="flex items-center justify-between bg-white p-2 rounded-lg shadow-xs border border-slate-100 text-left hover:bg-slate-100 transition-colors">
+                            <div className="flex items-center gap-2">
+                              <div className="w-5 h-5 rounded-full bg-rose-50 flex items-center justify-center text-rose-500"><svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></div>
+                              <div className="flex flex-col leading-tight"><span className="text-[10px] font-bold text-slate-800">Emotions</span><span className="text-[7.5px] text-slate-400">Journal & counseling</span></div>
+                            </div>
+                            <span className="text-slate-300 text-xs font-bold">&rarr;</span>
+                          </button>
+
+                          <button onClick={() => setPhoneScreen("life")} className="flex items-center justify-between bg-white p-2 rounded-lg shadow-xs border border-slate-100 text-left hover:bg-slate-100 transition-colors">
+                            <div className="flex items-center gap-2">
+                              <div className="w-5 h-5 rounded-full bg-amber-55 flex items-center justify-center text-amber-600"><svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg></div>
+                              <div className="flex flex-col leading-tight"><span className="text-[10px] font-bold text-slate-800">Life</span><span className="text-[7.5px] text-slate-400">Reminders & advocacy</span></div>
+                            </div>
+                            <span className="text-slate-300 text-xs font-bold">&rarr;</span>
+                          </button>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Screen 2: Mind Screen */}
+                    {phoneScreen === "mind" && (
+                      <div className="flex flex-col flex-1 text-center">
+                        <div className="flex items-center mb-3">
+                          <button onClick={() => setPhoneScreen("home")} className="text-[10px] text-om-400 font-bold flex items-center">&larr; Back</button>
+                          <span className="text-[11px] font-bold text-slate-800 ml-auto">Mindfulness</span>
+                        </div>
+                        <div className="flex flex-col items-center justify-center flex-1 bg-white border border-slate-100 rounded-xl p-4 shadow-xs">
+                          <div className="w-20 h-20 rounded-full bg-purple-55 flex items-center justify-center border-4 border-purple-100 animate-pulse mb-3">
+                            <span className="text-[8px] font-bold text-purple-600 uppercase tracking-widest">Breathe</span>
+                          </div>
+                          <h4 className="text-[11px] font-bold text-slate-800 mb-1">Guided Relaxation</h4>
+                          <p className="text-[8px] text-slate-500 mb-3 px-2 leading-relaxed">Relax and inhale gently for 4 seconds, hold, and slowly exhale.</p>
+                          <button className="px-3.5 py-1 bg-om-400 text-white rounded-full text-[8.5px] font-bold shadow-sm">Play Audio (5 min)</button>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Screen 3: Body Screen */}
+                    {phoneScreen === "body" && (
+                      <div className="flex flex-col flex-1">
+                        <div className="flex items-center mb-3">
+                          <button onClick={() => setPhoneScreen("home")} className="text-[10px] text-om-400 font-bold flex items-center">&larr; Back</button>
+                          <span className="text-[11px] font-bold text-slate-800 ml-auto">Body & Yoga</span>
+                        </div>
+                        <div className="flex flex-col gap-2.5 flex-1 text-left">
+                          <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-2.5">
+                            <div className="text-[9px] font-bold text-emerald-800">🧘 Yoga Therapy</div>
+                            <div className="text-[7.5px] text-slate-500 leading-snug mt-0.5">Gentle routines to ease fatigue & improve sleep.</div>
+                          </div>
+                          <div className="bg-blue-50 border border-blue-100 rounded-xl p-2.5">
+                            <div className="text-[9px] font-bold text-blue-800">🚶 Activity Tracker</div>
+                            <div className="text-[7.5px] text-slate-500 leading-snug mt-0.5">Walk 25 mins daily. 80% of today's target achieved.</div>
+                          </div>
+                          <div className="bg-amber-50 border border-amber-100 rounded-xl p-2.5">
+                            <div className="text-[9px] font-bold text-amber-800">🍏 Anti-Inflammatory Diet</div>
+                            <div className="text-[7.5px] text-slate-500 leading-snug mt-0.5">Antioxidant smoothies & immunity booster meals.</div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Screen 4: Emotions Screen */}
+                    {phoneScreen === "emotions" && (
+                      <div className="flex flex-col flex-1 text-center">
+                        <div className="flex items-center mb-3">
+                          <button onClick={() => setPhoneScreen("home")} className="text-[10px] text-om-400 font-bold flex items-center">&larr; Back</button>
+                          <span className="text-[11px] font-bold text-slate-800 ml-auto">Mood Check</span>
+                        </div>
+                        <div className="bg-white border border-slate-100 rounded-xl p-3 flex-1 flex flex-col justify-center shadow-xs">
+                          <span className="text-[10px] font-bold text-slate-700 mb-3">How are you feeling today?</span>
+                          <div className="flex gap-2 justify-center mb-4">
+                            {["😊", "😐", "😔", "😢"].map((mood, i) => (
+                              <button key={i} onClick={() => setSelectedMood(mood)} className={`w-8 h-8 rounded-full border flex items-center justify-center text-sm hover:scale-105 transition-transform ${selectedMood === mood ? 'bg-purple-100 border-om-400' : 'bg-slate-50 border-slate-150'}`}>{mood}</button>
+                            ))}
+                          </div>
+                          {selectedMood ? (
+                            <div className="bg-rose-50 border border-rose-100 rounded-lg p-2.5 text-[8.5px] text-rose-800 leading-relaxed">
+                              {selectedMood === "😊" && "Wonderful! Keeping a positive outlook is vital."}
+                              {selectedMood === "😐" && "It is fine to have quiet days. Take it easy."}
+                              {selectedMood === "😔" && "Sending care. Tap 'Chat' to talk to Coach Sneha."}
+                              {selectedMood === "😢" && "You're not alone. We are here to support you."}
+                            </div>
+                          ) : (
+                            <span className="text-[8px] text-slate-400 italic">Select an emoji to log mood</span>
+                          )}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Screen 5: Life Screen */}
+                    {phoneScreen === "life" && (
+                      <div className="flex flex-col flex-1">
+                        <div className="flex items-center mb-3">
+                          <button onClick={() => setPhoneScreen("home")} className="text-[10px] text-om-400 font-bold flex items-center">&larr; Back</button>
+                          <span className="text-[11px] font-bold text-slate-800 ml-auto">Reminders</span>
+                        </div>
+                        <div className="flex flex-col gap-2.5 flex-1 text-left">
+                          <div className="bg-slate-100 rounded-xl p-2.5 border border-slate-200">
+                            <div className="text-[9.5px] font-bold text-slate-800">📅 Live Coaching Call</div>
+                            <div className="text-[8px] text-slate-500 mt-0.5">Tomorrow, 11:00 AM with Coach Sneha</div>
+                          </div>
+                          <div className="bg-slate-100 rounded-xl p-2.5 border border-slate-200">
+                            <div className="text-[9.5px] font-bold text-slate-800">💊 Pills Tracker</div>
+                            <div className="text-[8px] text-slate-500 mt-0.5">Next dose: Afternoon, 2:30 PM</div>
+                          </div>
+                          <div className="bg-slate-100 rounded-xl p-2.5 border border-slate-200">
+                            <div className="text-[9.5px] font-bold text-slate-800">🛡️ Advocacy Assist</div>
+                            <div className="text-[8px] text-slate-500 mt-0.5">Insurance authorization request approved.</div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Screen 6: Coach Chat Screen */}
+                    {phoneScreen === "chat" && (
+                      <div className="flex flex-col flex-1 text-left">
+                        <div className="flex items-center mb-2">
+                          <span className="text-[11px] font-bold text-slate-800">Coach Sneha</span>
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 ml-1.5"></span>
+                        </div>
+                        <div className="flex flex-col flex-1 bg-slate-100 rounded-xl p-2.5 justify-between shadow-inner overflow-hidden">
+                          <div className="flex flex-col gap-2 overflow-y-auto pr-1">
+                            <div className="flex flex-col items-start text-[8px]">
+                              <span className="text-[7px] text-slate-400 mb-0.5">Sneha • 10:15 AM</span>
+                              <div className="bg-white text-slate-800 p-2 rounded-r-lg rounded-bl-lg shadow-xs max-w-[85%] border border-slate-200 leading-snug">Hi! How are you feeling after yesterday's yoga therapy?</div>
+                            </div>
+                            <div className="flex flex-col items-end text-[8px]">
+                              <span className="text-[7px] text-slate-400 mb-0.5">You • 10:18 AM</span>
+                              <div className="bg-om-400 text-white p-2 rounded-l-lg rounded-br-lg shadow-xs max-w-[85%] leading-snug">Much better! The fatigue is far more manageable.</div>
+                            </div>
+                          </div>
+                          <div className="mt-2 flex gap-1 items-center bg-white border border-slate-200 rounded-full p-1 pl-2.5 shadow-xs">
+                            <span className="text-slate-400 flex-1 text-[8.5px]">Type reply...</span>
+                            <button className="w-4 h-4 rounded-full bg-om-400 flex items-center justify-center text-white text-[8px] font-bold">&uarr;</button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Screen 7: Community Feed Screen */}
+                    {phoneScreen === "community" && (
+                      <div className="flex flex-col flex-1 text-left">
+                        <div className="flex items-center mb-2">
+                          <span className="text-[11px] font-bold text-slate-800">OM Community</span>
+                        </div>
+                        <div className="flex flex-col gap-2 flex-1 overflow-y-auto pr-0.5">
+                          <div className="bg-white border border-slate-200 rounded-xl p-2.5 shadow-xs">
+                            <div className="flex items-center gap-1.5 mb-1">
+                              <div className="w-3.5 h-3.5 rounded-full bg-purple-100 text-om-400 flex items-center justify-center text-[7px] font-bold">PS</div>
+                              <span className="text-[9px] font-bold">Priya S.</span>
+                              <span className="text-[7.5px] text-slate-400 ml-auto">2h ago</span>
+                            </div>
+                            <p className="text-[8px] text-slate-600 leading-relaxed">Clean PET scan reports today! Yay! Thank you for the positive vibes guys 🙏❤️</p>
+                          </div>
+                          <div className="bg-white border border-slate-200 rounded-xl p-2.5 shadow-xs">
+                            <div className="flex items-center gap-1.5 mb-1">
+                              <div className="w-3.5 h-3.5 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-[7px] font-bold">AK</div>
+                              <span className="text-[9px] font-bold">Amit K.</span>
+                              <span className="text-[7.5px] text-slate-400 ml-auto">4h ago</span>
+                            </div>
+                            <p className="text-[8px] text-slate-600 leading-relaxed">The breathing exercises in the app did wonders for my chemo nausea today. Highly recommended.</p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Bottom Navigation Bar */}
+                    <div className="mt-auto pt-2 border-t border-slate-100 flex justify-around text-[9px] font-bold text-slate-400 bg-slate-50">
+                      <button onClick={() => setPhoneScreen("home")} className={`flex flex-col items-center gap-0.5 transition-colors ${phoneScreen !== "chat" && phoneScreen !== "community" ? 'text-om-400' : 'hover:text-slate-600'}`}>
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h3m-6 0a1 1 0 001-1v-4a1 1 0 00-1-1h-2a1 1 0 00-1 1v4a1 1 0 001 1m-6 0h6" /></svg>
+                        <span>Home</span>
+                      </button>
+                      <button onClick={() => setPhoneScreen("chat")} className={`flex flex-col items-center gap-0.5 transition-colors ${phoneScreen === "chat" ? 'text-om-400' : 'hover:text-slate-600'}`}>
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+                        <span>Chat</span>
+                      </button>
+                      <button onClick={() => setPhoneScreen("community")} className={`flex flex-col items-center gap-0.5 transition-colors ${phoneScreen === "community" ? 'text-om-400' : 'hover:text-slate-600'}`}>
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                        <span>Feed</span>
+                      </button>
                     </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0">
-                      <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    </div>
-                    <div className="flex flex-col mt-0.5">
-                      <span className="font-bold text-sm">Body</span>
-                      <span className="text-[10.5px] text-white/70">We strengthen your being</span>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0">
-                      <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                    </div>
-                    <div className="flex flex-col mt-0.5">
-                      <span className="font-bold text-sm">Emotions</span>
-                      <span className="text-[10.5px] text-white/70">We uplift your spirit</span>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0">
-                      <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
-                    </div>
-                    <div className="flex flex-col mt-0.5">
-                      <span className="font-bold text-sm">Life</span>
-                      <span className="text-[10.5px] text-white/70">We walk with you always</span>
-                    </div>
+
+                    {/* iOS Home Indicator Bar */}
+                    <div className="w-20 h-1 bg-slate-300 rounded-full mx-auto mt-2 flex-shrink-0"></div>
                   </div>
                 </div>
               </div>
@@ -236,9 +418,8 @@ export default function Home() {
               <div className="w-40 h-24 flex-shrink-0 rounded-lg overflow-hidden shadow-inner">
                 <img src="/holding_hands.jpg" alt="Holding Hands" className="w-full h-full object-cover" />
               </div>
-              <p className="font-bold text-[13px] leading-relaxed lg:whitespace-nowrap">
-                Cancer isn't just treated—it's fought.<br />
-                And we're here to fight with you.
+              <p className="font-bold text-sm leading-snug">
+                Cancer isn't just treated—it's fought. And we're here to fight with you
               </p>
             </div>
 
@@ -247,9 +428,9 @@ export default function Home() {
               <div className="flex-shrink-0">
                 <svg className="w-12 h-12 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 16v.01M15 10a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
               </div>
-              <p className="text-[13px] leading-relaxed lg:whitespace-nowrap">
-                We don't replace medical care. We complement your<br />
-                journey with holistic support, therapies and care.
+              <p className="text-[13px] leading-relaxed">
+                We don't replace medical care. <br />
+                We complement your journey with holistic support, therapies and care.
               </p>
             </div>
 
@@ -258,9 +439,8 @@ export default function Home() {
               <div className="flex-shrink-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg">
                 <svg className="w-6 h-6 text-om-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
               </div>
-              <p className="text-[13px] leading-relaxed lg:whitespace-nowrap">
-                All our onco coaches are certified professionals<br />
-                with specialized training and experience.
+              <p className="text-[13px] leading-relaxed">
+                All our onco coaches are certified professionals with specialized training and experience.
               </p>
             </div>
 
@@ -422,21 +602,32 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
 
             {/* Plan 1: Basic Access */}
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-xs flex flex-col overflow-hidden">
-              <div className="p-6 text-center flex flex-col items-center">
-                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Free For Everyone</span>
-                <h3 className="font-bold text-xl text-om-400">Basic Access</h3>
-                <p className="text-[12px] text-slate-500 mt-4 leading-relaxed px-2">Complete access to our compassionate community, library of resources, and essential cancer support tools, absolutely free.</p>
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-md flex flex-col overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:border-om-400 hover:shadow-xl hover:z-10">
+              <div className="bg-[#422C7C] p-6 text-center text-white">
+                <span className="text-[10px] font-bold text-white/80 uppercase tracking-widest mb-1.5 block">Free Plan</span>
+                <h3 className="font-bold text-2xl">Basic Access</h3>
               </div>
-              <div className="p-6 mt-auto">
-                <button className="w-full py-3.5 rounded-lg border-2 border-slate-200 text-[#1A1725] font-bold text-[13px] hover:border-om-400 hover:text-om-400 transition-colors">
-                  Download App
-                </button>
+              <div className="p-6 flex flex-col flex-1">
+                <div className="flex items-end justify-center mb-6">
+                  <span className="font-black text-[42px] text-[#1A1725] leading-none">Free</span>
+                  <span className="text-slate-500 text-sm font-medium mb-1 ml-1">/forever</span>
+                </div>
+                <ul className="flex flex-col gap-3.5 mb-8">
+                  <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-om-400 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                    <span className="text-[14px] font-bold text-slate-800 leading-snug">Access to community and resources</span>
+                  </li>
+                </ul>
+                <div className="mt-auto">
+                  <button className="w-full py-3.5 rounded-lg bg-[#422C7C] hover:bg-om-400 text-white font-bold text-[13px] transition-colors shadow-md">
+                    Download App
+                  </button>
+                </div>
               </div>
             </div>
 
             {/* Plan 2: Mitra Plus */}
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-md flex flex-col overflow-hidden">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-md flex flex-col overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:border-om-400 hover:shadow-xl hover:z-10">
               <div className="bg-[#422C7C] p-6 text-center text-white">
                 <span className="text-[10px] font-bold text-white/80 uppercase tracking-widest mb-1.5 block">Monthly Plan</span>
                 <h3 className="font-bold text-2xl">Mitra Plus</h3>
@@ -462,16 +653,16 @@ export default function Home() {
             </div>
 
             {/* Plan 3: Mitra Premium */}
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-xl flex flex-col overflow-hidden relative transform lg:-translate-y-2 lg:scale-105 z-10">
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-md flex flex-col overflow-hidden relative transition-all duration-300 hover:scale-[1.03] hover:border-om-400 hover:shadow-xl hover:z-10">
               <div className="absolute top-0 right-0 bg-[#EAB308] text-white text-[9px] font-black uppercase tracking-wider py-1 px-3 rounded-bl-lg shadow-sm z-20 flex items-center gap-1">
                 <svg className="w-3 h-3" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
                 Most Popular
               </div>
-              <div className="bg-[#422C7C] p-6 text-center text-white pb-8">
+              <div className="bg-[#422C7C] p-6 text-center text-white">
                 <span className="text-[10px] font-bold text-white/80 uppercase tracking-widest mb-1.5 block">Monthly Plan</span>
                 <h3 className="font-bold text-2xl">Mitra Premium</h3>
               </div>
-              <div className="p-6 flex flex-col flex-1 pt-4">
+              <div className="p-6 flex flex-col flex-1">
                 <div className="flex items-end justify-center mb-6">
                   <span className="font-bold text-2xl text-[#1A1725] mr-1">₹</span>
                   <span className="font-black text-[42px] text-[#1A1725] leading-none">999</span>
@@ -479,43 +670,42 @@ export default function Home() {
                 </div>
                 <ul className="flex flex-col gap-3.5 mb-8">
                   <li className="flex items-start gap-3">
-                    <svg className="w-5 h-5 text-[#422C7C] flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                    <svg className="w-5 h-5 text-om-400 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
                     <span className="text-[14px] font-bold text-slate-800 leading-snug">Flat 15% OFF on all paid services in the app</span>
                   </li>
                 </ul>
                 <div className="mt-auto">
-                  <button className="w-full py-3.5 rounded-lg bg-[#422C7C] hover:bg-om-400 text-white font-bold text-[13px] transition-colors shadow-lg">
+                  <button className="w-full py-3.5 rounded-lg bg-[#422C7C] hover:bg-om-400 text-white font-bold text-[13px] transition-colors shadow-md">
                     Download App
                   </button>
                 </div>
               </div>
             </div>
 
-            {/* The OM Promise Panel */}
-            <div className="bg-gradient-to-br from-[#422C7C] to-[#2a1c52] rounded-2xl flex flex-col p-8 text-white shadow-lg justify-center relative overflow-hidden h-full lg:ml-6 transform transition-transform hover:scale-[1.02]">
-              <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white opacity-5 rounded-full blur-3xl"></div>
-              <div className="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-om-400 opacity-10 rounded-full blur-3xl"></div>
-
-              <div className="relative z-10">
-                <h4 className="font-serif font-bold text-3xl mb-4 leading-tight">
-                  Our Promise <br /> to You
-                </h4>
-                <p className="text-white/80 text-[13px] leading-relaxed mb-10">
-                  We are committed to providing a safe, confidential, and judgment-free space where you can share your fears and find the strength to fight back.
+            {/* Plan 4: The OM Promise Panel */}
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-md flex flex-col overflow-hidden transition-all duration-300 hover:scale-[1.03] hover:border-om-400 hover:shadow-xl hover:z-10">
+              <div className="bg-[#422C7C] p-6 text-center text-white">
+                <span className="text-[10px] font-bold text-white/80 uppercase tracking-widest mb-1.5 block">OM Promise</span>
+                <h3 className="font-bold text-2xl">Our Promise</h3>
+              </div>
+              <div className="p-6 flex flex-col flex-1">
+                <p className="text-[12px] text-slate-500 mb-6 leading-relaxed text-center px-1">
+                  We are committed to providing a safe, confidential, and judgment-free space where you can find support.
                 </p>
-                <div className="flex flex-col gap-5">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
-                      <svg className="w-5 h-5 text-om-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
-                    </div>
-                    <span className="text-[14px] font-semibold">100% Confidential Care</span>
-                  </div>
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
-                      <svg className="w-5 h-5 text-om-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
-                    </div>
-                    <span className="text-[14px] font-semibold">Certified Professionals</span>
-                  </div>
+                <ul className="flex flex-col gap-3.5 mb-8">
+                  <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-om-400 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                    <span className="text-[14px] font-bold text-slate-800 leading-snug">100% Confidential Care</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-om-400 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                    <span className="text-[14px] font-bold text-slate-800 leading-snug">Certified Professionals</span>
+                  </li>
+                </ul>
+                <div className="mt-auto">
+                  <button className="w-full py-3.5 rounded-lg bg-[#422C7C] hover:bg-om-400 text-white font-bold text-[13px] transition-colors shadow-md">
+                    Download App
+                  </button>
                 </div>
               </div>
             </div>
@@ -714,7 +904,7 @@ export default function Home() {
                 <div className="w-8 h-8 rounded-full border border-om-400/20 bg-white flex items-center justify-center overflow-hidden">
                   <img src="/logo.png" alt="OM Logo" className="w-full h-full object-cover" />
                 </div>
-                <LogoText className="text-[17px]" />
+                <img src="/logo-text.png" alt="Oncology Mitra" className="h-[22px] w-auto object-contain" />
               </div>
               <p className="text-[11px] text-slate-400 leading-relaxed pr-6 mt-2">
                 A holistic cancer support platform providing counselling, therapies and community care to help you heal, grow and thrive.
