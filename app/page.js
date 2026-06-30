@@ -1,473 +1,520 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
+import { useState, useEffect } from "react";
+
+const LogoText = ({ className = "text-[28px]" }) => (
+  <div className={`flex flex-col justify-center items-start ${className}`}>
+    <span
+      className="font-serif font-black text-om-400 leading-none uppercase block"
+      style={{ fontSize: '1em', letterSpacing: '0.02em' }}
+    >
+      ONCOLOGY MITRA
+    </span>
+    <span
+      className="uppercase text-slate-500 font-bold leading-none block"
+      style={{ fontSize: '0.41em', letterSpacing: '0.38em', marginTop: '0.25em' }}
+    >
+      WE WALK WITH YOU
+    </span>
+  </div>
+);
 
 export default function Home() {
-  const [activeTab, setActiveTab] = useState("splash");
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [email, setEmail] = useState("");
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleWaitlistSubmit = (e) => {
+    e.preventDefault();
+    if (email.trim()) {
+      setSubmitted(true);
+      setEmail("");
+    }
+  };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
-    <div className="relative min-h-screen bg-om-950 font-sans text-slate-800 overflow-x-hidden bg-grid">
-      
-      {/* Calm background radial glows */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-7xl h-[600px] pointer-events-none z-0 bg-spotlight" />
-      <div className="absolute top-[1000px] left-[-200px] w-[500px] h-[500px] rounded-full bg-om-400/5 blur-[120px] pointer-events-none" />
-      <div className="absolute top-[2000px] right-[-200px] w-[500px] h-[500px] rounded-full bg-accent-cyan/5 blur-[120px] pointer-events-none" />
+    <div className="relative min-h-screen bg-white font-sans text-[#1A1725] overflow-x-hidden">
+
+      {/* Preloader */}
+      <div className={`fixed inset-0 bg-[#FAF8FD] z-[9999] flex flex-col items-center justify-center transition-transform duration-[850ms] ease-[cubic-bezier(0.85,0,0.15,1)] pointer-events-none ${isLoaded ? '-translate-y-full' : 'translate-y-0'}`}>
+        <div className="w-16 h-16 rounded-full overflow-hidden border border-om-400/20 bg-white animate-logo-pulse shadow-premium flex items-center justify-center">
+          <img src="/logo.png" alt="OM Logo" className="w-full h-full object-cover" />
+        </div>
+        <div className="mt-6 flex flex-col items-center">
+          <LogoText className="text-3xl" />
+          <div className="w-48 h-1 bg-om-900 rounded-full overflow-hidden mt-4">
+            <div className="h-full bg-om-400 rounded-full animate-progress" />
+          </div>
+        </div>
+      </div>
 
       {/* Header / Navbar */}
-      <header className="sticky top-0 z-50 w-full glass-nav">
-        <div className="mx-auto max-w-7xl px-6 h-20 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="relative w-11 h-11 rounded-full overflow-hidden border border-om-400/20">
-              <Image
-                src="/logo.png"
-                alt="OM Logo"
-                fill
-                sizes="44px"
-                className="object-cover"
-                priority
-              />
+      <header className="sticky top-0 z-50 w-full glass-nav shadow-sm">
+        <div className="mx-auto max-w-[1400px] px-6 h-28 flex items-center justify-between">
+          <div className="flex items-center gap-5">
+            <div className="w-20 h-20 rounded-full overflow-hidden border border-om-400/20 bg-white flex-shrink-0 shadow-sm">
+              <img src="/logo.png" alt="OM Logo" className="w-full h-full object-cover scale-[1.15]" />
             </div>
-            <div className="flex flex-col">
-              <span className="font-display font-black text-2xl tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-om-200 via-om-100 to-om-400">
-                OM
-              </span>
-              <span className="text-[10px] uppercase tracking-widest text-slate-500 font-semibold font-display">
-                Oncology Mitra
-              </span>
-            </div>
+            <LogoText className="text-2xl sm:text-[28px]" />
           </div>
 
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-            <a href="#how-it-works" className="hover:text-om-400 transition-colors">How it Works</a>
-            <a href="#features" className="hover:text-om-400 transition-colors">Features</a>
-            <a href="#preview" className="hover:text-om-400 transition-colors">App Preview</a>
-            <a href="#team" className="hover:text-om-400 transition-colors">Medical Panel</a>
+          {/* Navigation Links */}
+          <nav className="hidden xl:flex items-center gap-7 text-[12px] font-bold text-slate-700">
+            <a href="#" className="hover:text-om-400 transition-colors border-b-2 border-om-400 pb-1 text-om-400">Home</a>
+            <a href="#how-it-works" className="hover:text-om-400 transition-colors pb-1">About Us</a>
+            <a href="#services" className="hover:text-om-400 transition-colors pb-1 flex items-center gap-1">
+              Our Services
+
+            </a>
+            <a href="#how-it-works" className="hover:text-om-400 transition-colors pb-1">For Patients</a>
+            <a href="#community" className="hover:text-om-400 transition-colors pb-1">OM Community</a>
+            <a href="#resources" className="hover:text-om-400 transition-colors pb-1 flex items-center gap-1">
+              Resources            </a>
+            <a href="#contact" className="hover:text-om-400 transition-colors pb-1">Contact Us</a>
           </nav>
 
-          <div>
+          <div className="flex items-center gap-6">
+            <div className="hidden lg:flex items-center gap-2 border border-slate-200 rounded-full px-4 py-2 bg-white shadow-xs">
+              <svg className="w-4 h-4 text-om-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+              <span className="text-xs font-bold text-slate-800">+91 95654 45699</span>
+            </div>
             <a
               href="#download"
-              className="inline-flex h-10 items-center justify-center rounded-full bg-gradient-to-r from-om-400 to-om-300 px-6 text-sm font-bold text-white shadow-md shadow-om-400/10 transition-all hover:scale-[1.03] active:scale-[0.98]"
+              className="inline-flex h-11 items-center justify-center rounded-lg bg-om-400 hover:bg-om-300 px-6 text-xs font-bold text-white shadow-sm transition-colors"
             >
-              Get Started
+              Download App
             </a>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="relative z-10 mx-auto max-w-7xl px-6 pt-16 pb-24 md:pt-24 md:pb-32 flex flex-col lg:flex-row items-center gap-16">
-        
-        {/* Left Side: Copy */}
-        <div className="flex-1 text-center lg:text-left">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-om-800 text-om-200 text-xs font-semibold uppercase tracking-wider mb-6 shadow-sm">
-            <svg className="w-3.5 h-3.5 text-om-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-            </svg>
-            We walk with you
-          </div>
-          
-          <h1 className="font-display font-black text-5xl sm:text-6xl lg:text-7xl leading-tight tracking-tight text-slate-900 mb-6">
-            Support for your <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-om-300 via-om-400 to-accent-cyan">
-              cancer journey
-            </span>
-          </h1>
+      <section className="relative z-10 w-full overflow-hidden bg-gradient-to-br from-[#F5F2FC] to-white pt-10 pb-0">
+        <div className="mx-auto max-w-[1400px] px-6">
+          <div className="flex flex-col lg:flex-row items-stretch gap-10">
 
-          <p className="max-w-xl mx-auto lg:mx-0 text-lg sm:text-xl text-slate-600 font-normal leading-relaxed mb-8">
-            Connect instantly with specialized oncology counselors via video, voice, or chat. A calming, safe, confidential, and empathetic space tailored for patients and their families.
-          </p>
+            {/* Left Column Content */}
+            <div className="lg:w-[45%] text-left flex flex-col justify-center pb-16 pt-10">
 
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-10">
-            <a
-              href="#download"
-              className="inline-flex h-14 items-center justify-center gap-3 rounded-full bg-gradient-to-r from-om-400 to-om-300 px-8 text-base font-bold text-white shadow-lg shadow-om-400/25 transition-all hover:scale-[1.02] hover:shadow-om-400/40"
-            >
-              Download OM App
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </a>
-            
-            <a
-              href="#how-it-works"
-              className="inline-flex h-14 items-center justify-center rounded-full border border-solid border-slate-300 bg-white px-8 text-base font-bold text-slate-700 transition-colors hover:bg-slate-50 hover:border-slate-400"
-            >
-              How It Works
-            </a>
-          </div>
+              <h1 className="font-serif font-black text-5xl sm:text-[64px] leading-[1.1] tracking-tight text-[#1A1725]">
+                You focus on <br />
+                healing. <br />
+                <span className="text-om-400">
+                  We walk <br />
+                  with you.
+                </span>
+              </h1>
 
-          {/* Quick Metrics */}
-          <div className="grid grid-cols-3 gap-6 max-w-md mx-auto lg:mx-0 border-t border-slate-200 pt-8">
-            <div>
-              <div className="font-display font-black text-2xl sm:text-3xl text-om-300">24/7</div>
-              <div className="text-xs text-slate-500 font-medium">On-Demand Care</div>
-            </div>
-            <div>
-              <div className="font-display font-black text-2xl sm:text-3xl text-accent-cyan">100%</div>
-              <div className="text-xs text-slate-500 font-medium">Confidential & Safe</div>
-            </div>
-            <div>
-              <div className="font-display font-black text-2xl sm:text-3xl text-om-200">Top-Tier</div>
-              <div className="text-xs text-slate-500 font-medium">Oncologists</div>
-            </div>
-          </div>
-        </div>
+              <p className="text-slate-700 text-[15px] font-medium leading-relaxed mt-6 max-w-md">
+                Oncology Mitra is a holistic cancer support platform with certified onco coaches, therapies and a compassionate community to transform your difficult journey into a painless path.
+              </p>
 
-        {/* Right Side: Phone Mockup Frame */}
-        <div className="flex-1 w-full max-w-sm lg:max-w-md relative flex justify-center">
-          
-          {/* Subtle Ring behind phone */}
-          <div className="absolute w-[360px] h-[360px] rounded-full border border-om-400/10 z-0 pointer-events-none" />
-          
-          <div className="relative w-[300px] sm:w-[320px] aspect-[9/19.5] rounded-[52px] border-4 border-slate-800/90 bg-slate-900 p-2.5 shadow-xl shadow-om-500/5 z-10 animate-float">
-            
-            {/* Screen Content Wrapper */}
-            <div className="relative w-full h-full rounded-[42px] overflow-hidden border border-slate-700/20">
-              
-              {/* Tab Screenshots */}
-              <div className={`absolute inset-0 transition-opacity duration-500 ${activeTab === "splash" ? "opacity-100 z-20" : "opacity-0 z-10"}`}>
-                <Image
-                  src="/screenshot-splash.png"
-                  alt="OM App Splash Screen"
-                  fill
-                  sizes="320px"
-                  className="object-cover"
-                />
+              {/* Horizontal Features */}
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-4 mt-8 mb-10">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-om-900 flex items-center justify-center text-om-400">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
+                  </div>
+                  <span className="text-[10px] font-bold text-slate-800 leading-tight whitespace-nowrap">Certified<br />Onco Coaches</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-om-900 flex items-center justify-center text-om-400">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                  </div>
+                  <span className="text-[10px] font-bold text-slate-800 leading-tight whitespace-nowrap">Holistic<br />Wellness</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-om-900 flex items-center justify-center text-om-400">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                  </div>
+                  <span className="text-[10px] font-bold text-slate-800 leading-tight whitespace-nowrap">Compassionate<br />Community</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-full bg-om-900 flex items-center justify-center text-om-400">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                  </div>
+                  <span className="text-[10px] font-bold text-slate-800 leading-tight whitespace-nowrap">Safe. Trusted.<br />Confidential.</span>
+                </div>
               </div>
 
-              <div className={`absolute inset-0 transition-opacity duration-500 ${activeTab === "dashboard1" ? "opacity-100 z-20" : "opacity-0 z-10"}`}>
-                <Image
-                  src="/screenshot-dashboard-1.png"
-                  alt="OM App Dashboard"
-                  fill
-                  sizes="320px"
-                  className="object-cover"
-                />
-              </div>
-
-              <div className={`absolute inset-0 transition-opacity duration-500 ${activeTab === "dashboard2" ? "opacity-100 z-20" : "opacity-0 z-10"}`}>
-                <Image
-                  src="/screenshot-dashboard-2.png"
-                  alt="OM App Resources"
-                  fill
-                  sizes="320px"
-                  className="object-cover"
-                />
+              {/* CTAs */}
+              <div className="flex items-center gap-6">
+                <a href="#download" className="inline-flex h-12 items-center justify-center rounded-lg bg-om-400 hover:bg-om-300 px-6 text-xs font-bold text-white shadow-md transition-transform hover:scale-[1.02]">
+                  Download the OM App &rarr;
+                </a>
+                <a href="#video" className="inline-flex items-center gap-2 text-xs font-bold text-slate-700 hover:text-om-400 transition-colors group">
+                  <div className="w-10 h-10 rounded-full border border-slate-300 flex items-center justify-center group-hover:border-om-400 transition-colors">
+                    <svg className="w-4 h-4 ml-0.5 text-om-400" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                  </div>
+                  Watch Our Story
+                </a>
               </div>
             </div>
-          </div>
 
-          {/* Quick Mockup Toggles */}
-          <div className="absolute -bottom-8 flex gap-2.5 z-20 bg-white border border-slate-200 px-4 py-2 rounded-full shadow-md">
-            <button
-              onClick={() => setActiveTab("splash")}
-              className={`px-3.5 py-1 rounded-full text-xs font-semibold transition-colors ${activeTab === "splash" ? "bg-om-400 text-white" : "text-slate-500 hover:text-slate-800"}`}
-            >
-              Splash
-            </button>
-            <button
-              onClick={() => setActiveTab("dashboard1")}
-              className={`px-3.5 py-1 rounded-full text-xs font-semibold transition-colors ${activeTab === "dashboard1" ? "bg-om-400 text-white" : "text-slate-500 hover:text-slate-800"}`}
-            >
-              Dashboard
-            </button>
-            <button
-              onClick={() => setActiveTab("dashboard2")}
-              className={`px-3.5 py-1 rounded-full text-xs font-semibold transition-colors ${activeTab === "dashboard2" ? "bg-om-400 text-white" : "text-slate-500 hover:text-slate-800"}`}
-            >
-              Resources
-            </button>
+            {/* Right Side (Image + Vertical Overlay) */}
+            <div className="lg:w-[55%] relative flex items-end">
+
+              <div className="absolute top-0 bottom-0 -left-10 right-0 z-0 overflow-hidden rounded-r-2xl">
+                <div className="w-full h-full relative" style={{ maskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 100%)' }}>
+                  <img src="/doctors.jpg" alt="Medical Panel" className="w-full h-full object-cover object-center" />
+                </div>
+              </div>
+
+              {/* Vertical Dark Purple Overlay Card */}
+              <div className="absolute right-0 top-1/2 -translate-y-1/2 bg-[#422C7C] w-[300px] rounded-l-2xl shadow-2xl z-10 p-8 pl-12 flex flex-col text-white transform transition-transform duration-500 translate-x-[88%] hover:translate-x-0 cursor-pointer">
+                {/* Drag Indicator */}
+                <div className="absolute left-4 top-1/2 -translate-y-1/2 flex flex-col items-center gap-1.5 opacity-60">
+                  <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+                </div>
+
+                <div className="flex justify-center mb-6">
+                  <div className="w-12 h-12 rounded-full overflow-hidden flex items-center justify-center shadow-md border border-white/20">
+                    <img src="/logo.png" alt="OM Logo" className="w-full h-full object-cover scale-[1.15]" />
+                  </div>
+                </div>
+                <h3 className="text-center font-serif font-bold text-xl mb-8 leading-tight">Support Beyond<br />Treatment</h3>
+
+                <div className="flex flex-col gap-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" /></svg>
+                    </div>
+                    <div className="flex flex-col mt-0.5">
+                      <span className="font-bold text-sm">Mind</span>
+                      <span className="text-[10.5px] text-white/70">We calm your worries</span>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </div>
+                    <div className="flex flex-col mt-0.5">
+                      <span className="font-bold text-sm">Body</span>
+                      <span className="text-[10.5px] text-white/70">We strengthen your being</span>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    </div>
+                    <div className="flex flex-col mt-0.5">
+                      <span className="font-bold text-sm">Emotions</span>
+                      <span className="text-[10.5px] text-white/70">We uplift your spirit</span>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <div className="w-8 h-8 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    </div>
+                    <div className="flex flex-col mt-0.5">
+                      <span className="font-bold text-sm">Life</span>
+                      <span className="text-[10.5px] text-white/70">We walk with you always</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Onboarding Patient Journey ("How It Works") Section */}
-      <section id="how-it-works" className="relative z-10 py-24 bg-white border-y border-om-900">
-        <div className="mx-auto max-w-7xl px-6">
-          
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-xs uppercase tracking-widest text-om-400 font-bold">Your Companion Path</span>
-            <h2 className="font-display font-black text-4xl sm:text-5xl text-slate-900 mt-2 mb-4">
-              How OM Walks With You
+      {/* Sub-Hero Banner */}
+      <section className="bg-[#422C7C] text-white">
+        <div className="mx-auto max-w-[1400px]">
+          <div className="grid grid-cols-1 lg:grid-cols-3">
+
+            {/* Col 1 */}
+            <div className="flex items-center gap-6 p-6">
+              <div className="w-40 h-24 flex-shrink-0 rounded-lg overflow-hidden shadow-inner">
+                <img src="/holding_hands.jpg" alt="Holding Hands" className="w-full h-full object-cover" />
+              </div>
+              <p className="font-bold text-[13px] leading-relaxed lg:whitespace-nowrap">
+                Cancer isn't just treated—it's fought.<br />
+                And we're here to fight with you.
+              </p>
+            </div>
+
+            {/* Col 2 */}
+            <div className="flex items-center gap-6 p-6 lg:border-l border-white/20">
+              <div className="flex-shrink-0">
+                <svg className="w-12 h-12 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 16v.01M15 10a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+              </div>
+              <p className="text-[13px] leading-relaxed lg:whitespace-nowrap">
+                We don't replace medical care. We complement your<br />
+                journey with holistic support, therapies and care.
+              </p>
+            </div>
+
+            {/* Col 3 */}
+            <div className="flex items-center gap-6 p-6 lg:border-l border-white/20">
+              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg">
+                <svg className="w-6 h-6 text-om-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
+              </div>
+              <p className="text-[13px] leading-relaxed lg:whitespace-nowrap">
+                All our onco coaches are certified professionals<br />
+                with specialized training and experience.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Holistic Support Services Section */}
+      <section id="services" className="relative z-10 py-20 bg-white">
+        <div className="mx-auto max-w-[1400px] px-6">
+
+          <div className="text-center mb-16">
+            <h2 className="font-serif font-black text-3xl sm:text-4xl text-[#1A1725]">
+              Holistic Support Services
             </h2>
-            <p className="text-lg text-slate-500">
-              Designed as a gentle step-by-step companion, ensuring you have continuous support during active therapy.
-            </p>
+            <div className="flex items-center justify-center mt-3">
+              <div className="h-[1px] w-12 bg-slate-200"></div>
+              <svg className="w-4 h-4 mx-2 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+              <div className="h-[1px] w-12 bg-slate-200"></div>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 relative">
-            
-            {/* Step 1 */}
-            <div className="relative glass-card rounded-3xl p-8 bg-slate-50/50 border border-slate-200">
-              <div className="absolute top-6 right-8 text-6xl font-display font-black text-om-900">01</div>
-              <div className="w-12 h-12 rounded-xl bg-om-400/10 flex items-center justify-center text-om-400 mb-6">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+
+            {/* Card 1 */}
+            <div className="border border-slate-150 bg-white rounded-2xl p-5 flex flex-col justify-start gap-4 hover:border-om-400/40 transition-colors shadow-xs">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-om-900 flex items-center justify-center flex-shrink-0 text-om-400">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M20 2H4C2.9 2 2 2.9 2 4v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 10H6v-2h12v2zm0-3H6V7h12v2z" /></svg>
+                </div>
+                <h4 className="font-bold text-[#1A1725] text-[13px] leading-tight">Counselling &amp; Guidance</h4>
               </div>
-              <h3 className="font-display font-bold text-xl text-slate-900 mb-3">Onboard & Coordinate</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Log in securely to customize your dashboard. We gather critical oncology stages and timing to serve plans designed precisely for your condition.
-              </p>
+              <p className="text-[10px] text-slate-500 leading-relaxed font-medium">Expert onco counselling to help you understand, decide and stay strong.</p>
             </div>
 
-            {/* Step 2 */}
-            <div className="relative glass-card rounded-3xl p-8 bg-slate-50/50 border border-slate-200">
-              <div className="absolute top-6 right-8 text-6xl font-display font-black text-om-900">02</div>
-              <div className="w-12 h-12 rounded-xl bg-accent-cyan/10 flex items-center justify-center text-accent-cyan mb-6">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+            {/* Card 2 */}
+            <div className="border border-slate-150 bg-white rounded-2xl p-5 flex flex-col justify-start gap-4 hover:border-om-400/40 transition-colors shadow-xs">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-[#F3F4F6] flex items-center justify-center flex-shrink-0 text-slate-700">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m12.728 12.728l.707-.707" /></svg>
+                </div>
+                <h4 className="font-bold text-[#1A1725] text-[13px] leading-tight">Nutrition &amp; Diet Planning</h4>
               </div>
-              <h3 className="font-display font-bold text-xl text-slate-900 mb-3">Adopt Your Daily Plan</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Access your checklist every morning. Mark breathing targets, check your nutritional milestones, log mood cycles, and keep track of daily recovery indicators.
-              </p>
+              <p className="text-[10px] text-slate-500 leading-relaxed font-medium">Personalized nutrition plans to build strength, immunity and energy.</p>
             </div>
 
-            {/* Step 3 */}
-            <div className="relative glass-card rounded-3xl p-8 bg-slate-50/50 border border-slate-200">
-              <div className="absolute top-6 right-8 text-6xl font-display font-black text-om-900">03</div>
-              <div className="w-12 h-12 rounded-xl bg-accent-yellow/10 flex items-center justify-center text-accent-yellow mb-6">
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
+            {/* Card 3 */}
+            <div className="border border-slate-150 bg-white rounded-2xl p-5 flex flex-col justify-start gap-4 hover:border-om-400/40 transition-colors shadow-xs">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-om-900 flex items-center justify-center flex-shrink-0 text-om-400">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                </div>
+                <h4 className="font-bold text-[#1A1725] text-[13px] leading-tight">Yoga &amp; Meditation</h4>
               </div>
-              <h3 className="font-display font-bold text-xl text-slate-900 mb-3">Live Consulting & Panels</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Enter live audio and video consultation rooms hosted by senior oncologists and clinical counselors. Share experiences securely inside peer support networks.
-              </p>
+              <p className="text-[10px] text-slate-500 leading-relaxed font-medium">Therapeutic yoga and mindfulness to reduce stress and improve well-being.</p>
             </div>
 
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section id="features" className="relative z-10 py-24 bg-om-950">
-        <div className="mx-auto max-w-7xl px-6">
-          
-          <div className="text-center max-w-3xl mx-auto mb-20">
-            <span className="text-xs uppercase tracking-widest text-om-400 font-bold">App Capabilities</span>
-            <h2 className="font-display font-black text-4xl sm:text-5xl text-slate-900 mt-2 mb-4">
-              Calming Support Features
-            </h2>
-            <p className="text-lg text-slate-500">
-              Every card below outlines tools built specifically to alleviate clinical anxiety and organize your daily routines.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            {/* Card 1: Meditate */}
-            <div className="glass-card rounded-3xl p-8 bg-white border border-slate-100">
-              <div className="w-14 h-14 rounded-2xl bg-om-400/10 flex items-center justify-center text-om-400 mb-6">
-                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 2a10 10 0 0 1 10 10c0 5.523-4.477 10-10 10S2 17.523 2 12A10 10 0 0 1 12 2z" />
-                  <path d="M12 6a6 6 0 0 1 6 6c0 3.314-2.686 6-6 6s-6-2.686-6-6a6 6 0 0 1 6-6z" />
-                  <circle cx="12" cy="12" r="2" />
-                </svg>
+            {/* Card 4 */}
+            <div className="border border-slate-150 bg-white rounded-2xl p-5 flex flex-col justify-start gap-4 hover:border-om-400/40 transition-colors shadow-xs">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-[#F3EDFC] flex items-center justify-center flex-shrink-0 text-om-400">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" /></svg>
+                </div>
+                <h4 className="font-bold text-[#1A1725] text-[13px] leading-tight">Alternative Therapies</h4>
               </div>
-              <h3 className="font-display font-bold text-xl text-slate-900 mb-3">Guided Meditation</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Quiet your thoughts and build mental resilience. Access targeted breathing sessions, guided body scans, and soothing soundscapes structured to alleviate chemotherapy anxiety.
-              </p>
+              <p className="text-[10px] text-slate-500 leading-relaxed font-medium">Evidence informed therapies to support your body, mind and spirit.</p>
             </div>
 
-            {/* Card 2: Specialists */}
-            <div className="glass-card rounded-3xl p-8 bg-white border border-slate-100">
-              <div className="w-14 h-14 rounded-2xl bg-accent-cyan/10 flex items-center justify-center text-accent-cyan mb-6">
-                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
-                </svg>
+            {/* Card 5 */}
+            <div className="border border-slate-150 bg-white rounded-2xl p-5 flex flex-col justify-start gap-4 hover:border-om-400/40 transition-colors shadow-xs">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-[#FEF3C7] flex items-center justify-center flex-shrink-0 text-orange-500">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>
+                </div>
+                <h4 className="font-bold text-[#1A1725] text-[13px] leading-tight">Art <br />Therapy</h4>
               </div>
-              <h3 className="font-display font-bold text-xl text-slate-900 mb-3">Oncology Specialists</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Consult with verified cancer care professionals. Schedule quick virtual coordination calls with oncologists, oncology nurses, psychologists, and clinical nutritionists.
-              </p>
+              <p className="text-[10px] text-slate-500 leading-relaxed font-medium">Express, explore and heal through creative self-expression.</p>
             </div>
 
-            {/* Card 3: Nutrition */}
-            <div className="glass-card rounded-3xl p-8 bg-white border border-slate-100">
-              <div className="w-14 h-14 rounded-2xl bg-accent-yellow/10 flex items-center justify-center text-accent-yellow mb-6">
-                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-                </svg>
+            {/* Row 2 */}
+            {/* Card 6 */}
+            <div className="border border-slate-150 bg-white rounded-2xl p-5 flex flex-col justify-start gap-4 hover:border-om-400/40 transition-colors shadow-xs">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-[#FCE7F3] flex items-center justify-center flex-shrink-0 text-pink-500">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3" /></svg>
+                </div>
+                <h4 className="font-bold text-[#1A1725] text-[13px] leading-tight">Music Therapy</h4>
               </div>
-              <h3 className="font-display font-bold text-xl text-slate-900 mb-3">Diet & Nutrition Logs</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Ensure proper nutritional intake. Document specific cancer therapy dietary guides, track hydration levels, and receive expert meal blueprints for each treatment phase.
-              </p>
+              <p className="text-[10px] text-slate-500 leading-relaxed font-medium">Healing through music to uplift mood and reduce anxiety.</p>
             </div>
 
-            {/* Card 4: OM Assistant */}
-            <div className="glass-card rounded-3xl p-8 bg-white border border-slate-100">
-              <div className="w-14 h-14 rounded-2xl bg-om-400/10 flex items-center justify-center text-om-400 mb-6">
-                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 8V4H8" />
-                  <rect x="3" y="8" width="18" height="12" rx="2" />
-                  <circle cx="8" cy="13" r="1.5" />
-                  <circle cx="16" cy="13" r="1.5" />
-                </svg>
+            {/* Card 7 */}
+            <div className="border border-slate-150 bg-white rounded-2xl p-5 flex flex-col justify-start gap-4 hover:border-om-400/40 transition-colors shadow-xs">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 text-slate-500">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.536 8.464a5 5 0 010 7.072m2.828-9.9a9 9 0 010 12.728M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" /></svg>
+                </div>
+                <h4 className="font-bold text-[#1A1725] text-[13px] leading-tight">Sound Healing</h4>
               </div>
-              <h3 className="font-display font-bold text-xl text-slate-900 mb-3">OM Assistant</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Get immediate support queries addressed. Ask our private assistant questions on managing standard fatigue, nausea, physical milestones, and recovery habits.
-              </p>
+              <p className="text-[10px] text-slate-500 leading-relaxed font-medium">Frequency-based healing to restore inner harmony and deep relaxation.</p>
             </div>
 
-            {/* Card 5: Resource Library */}
-            <div className="glass-card rounded-3xl p-8 bg-white border border-slate-100">
-              <div className="w-14 h-14 rounded-2xl bg-emerald-600/10 flex items-center justify-center text-emerald-600 mb-6">
-                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
-                  <path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5V4.5z" />
-                </svg>
+            {/* Card 8 */}
+            <div className="border border-slate-150 bg-white rounded-2xl p-5 flex flex-col justify-start gap-4 hover:border-om-400/40 transition-colors shadow-xs">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-[#FCE7F3] flex items-center justify-center flex-shrink-0 text-pink-500">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                </div>
+                <h4 className="font-bold text-[#1A1725] text-[13px] leading-tight">Mood Tracker</h4>
               </div>
-              <h3 className="font-display font-bold text-xl text-slate-900 mb-3">Resource Library</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Browse clinically validated oncology care brochures, mental check-in worksheets, audio guides, guided relaxation podcasts, and toll-free emergency helplines.
-              </p>
+              <p className="text-[10px] text-slate-500 leading-relaxed font-medium">Track your emotions daily and improve your mental well-being.</p>
             </div>
 
-            {/* Card 6: Emotional Patterns */}
-            <div className="glass-card rounded-3xl p-8 bg-white border border-slate-100">
-              <div className="w-14 h-14 rounded-2xl bg-indigo-600/10 flex items-center justify-center text-indigo-600 mb-6">
-                <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M3 3v18h18" />
-                  <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3" />
-                </svg>
+            {/* Card 9 */}
+            <div className="border border-slate-150 bg-white rounded-2xl p-5 flex flex-col justify-start gap-4 hover:border-om-400/40 transition-colors shadow-xs">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center flex-shrink-0 text-[#3D2678]">
+                  <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z" /></svg>
+                </div>
+                <h4 className="font-bold text-[#1A1725] text-[13px] leading-tight">Books &amp; Journals</h4>
               </div>
-              <h3 className="font-display font-bold text-xl text-slate-900 mb-3">Mood & Pattern Tracking</h3>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Log pain metrics, energy variations, and sleep parameters daily. Get structured graphs that summarize weekly symptom maps to share directly with doctors.
-              </p>
+              <p className="text-[10px] text-slate-500 leading-relaxed font-medium">Curated resources to inspire, educate and empower you.</p>
+            </div>
+
+            {/* Card 10 */}
+            <div className="border border-slate-150 bg-white rounded-2xl p-5 flex flex-col justify-start gap-4 hover:border-om-400/40 transition-colors shadow-xs">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-om-900 flex items-center justify-center flex-shrink-0 text-om-400">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                </div>
+                <h4 className="font-bold text-[#1A1725] text-[13px] leading-tight">OM Community</h4>
+              </div>
+              <p className="text-[10px] text-slate-500 leading-relaxed font-medium">A safe and supportive community of patients, survivors and caregivers.</p>
             </div>
 
           </div>
         </div>
       </section>
 
-      {/* OM Assistant Dedicated Section */}
-      <section className="relative z-10 py-24 bg-om-900 border-b border-om-800">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="flex flex-col lg:flex-row items-center gap-16">
-            
-            {/* Left Column: Interactive Chat Mockup */}
-            <div className="flex-1 w-full max-w-md mx-auto bg-white rounded-3xl border border-slate-200 shadow-md p-6 flex flex-col h-[480px] justify-between">
-              {/* Header of Chat Mockup */}
-              <div className="flex items-center gap-3 border-b border-slate-100 pb-4">
-                <div className="w-10 h-10 rounded-full bg-om-400/10 flex items-center justify-center text-om-400">
-                  <svg className="w-5.5 h-5.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <rect x="3" y="8" width="18" height="12" rx="2" />
-                    <path d="M12 8V4H8" />
-                    <circle cx="8" cy="13" r="1" />
-                    <circle cx="16" cy="13" r="1" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-display font-bold text-slate-800 text-sm">OM Assistant</h4>
-                  <span className="text-[10px] text-emerald-600 font-bold uppercase tracking-wider flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    Active Companion
-                  </span>
-                </div>
+      {/* NEW Pricing Section: Choose Your Support Plan */}
+      <section id="pricing" className="relative z-10 py-16 bg-[#FAF9FB]">
+        <div className="mx-auto max-w-[1400px] px-6">
+
+          <div className="flex flex-col md:flex-row items-end justify-between mb-12">
+            <div>
+              <h2 className="font-serif font-black text-3xl sm:text-[34px] text-[#1A1725]">
+                Choose Your Support Plan
+              </h2>
+              <p className="text-slate-600 text-sm mt-3 font-medium">
+                Unlock special services, priority access and exclusive benefits.
+              </p>
+            </div>
+            <div className="hidden md:flex items-center gap-2 bg-white px-4 py-2.5 rounded-full shadow-xs border border-slate-200">
+              <svg className="w-4 h-4 text-om-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+              <span className="text-xs font-bold text-[#422C7C]">Cancel Anytime</span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+            {/* Plan 1: Basic Access */}
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xs flex flex-col overflow-hidden">
+              <div className="p-6 text-center flex flex-col items-center">
+                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2">Free For Everyone</span>
+                <h3 className="font-bold text-xl text-om-400">Basic Access</h3>
+                <p className="text-[12px] text-slate-500 mt-4 leading-relaxed px-2">Complete access to our compassionate community, library of resources, and essential cancer support tools, absolutely free.</p>
               </div>
-
-              {/* Chat bubbles */}
-              <div className="flex-1 flex flex-col gap-4 py-4 overflow-y-auto text-xs">
-                {/* User Message */}
-                <div className="self-end bg-slate-100 text-slate-700 px-4 py-3 rounded-2xl rounded-tr-none max-w-[85%]">
-                  I&apos;m feeling very fatigued after my chemo session yesterday. Is this normal?
-                </div>
-
-                {/* Assistant Message */}
-                <div className="self-start bg-om-800/40 text-slate-700 px-4 py-3 rounded-2xl rounded-tl-none max-w-[85%] border border-om-700/10">
-                  <p className="font-semibold text-slate-800 mb-1.5">Yes, fatigue is very common.</p>
-                  <p className="mb-2">Your body is working hard to heal after therapy. Here are a few gentle practices to help:</p>
-                  <ul className="list-disc pl-4 flex flex-col gap-1.5">
-                    <li>Take brief 15-minute rests rather than long afternoon naps.</li>
-                    <li>Drink small, frequent sips of water, coconut water, or warm broths.</li>
-                    <li>Try a soft 5-minute breathing layout in our Meditate section.</li>
-                  </ul>
-                </div>
-
-                {/* User Message */}
-                <div className="self-end bg-slate-100 text-slate-700 px-4 py-3 rounded-2xl rounded-tr-none max-w-[85%]">
-                  Thanks. Can you suggest a breathing guide?
-                </div>
-
-                {/* Assistant Message */}
-                <div className="self-start bg-om-800/40 text-slate-700 px-4 py-3 rounded-2xl rounded-tl-none max-w-[85%] border border-om-700/10">
-                  I suggest our <span className="font-semibold text-om-100 font-display">5-Minute Box Breathing</span> guide. It lowers heart rates and settles active stress. Would you like to launch it?
-                </div>
-              </div>
-
-              {/* Chat Input Bar mockup */}
-              <div className="border-t border-slate-100 pt-4 flex items-center gap-3">
-                <div className="flex-1 bg-slate-50 border border-slate-200 rounded-full px-4.5 py-2.5 text-slate-400 text-xs flex items-center">
-                  Ask about side-effects, nutrition, or mindfulness...
-                </div>
-                <button className="w-10 h-10 rounded-full bg-om-400 flex items-center justify-center text-white shadow-sm hover:bg-om-300 transition-colors">
-                  <svg className="w-4 h-4 rotate-90" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                  </svg>
+              <div className="p-6 mt-auto">
+                <button className="w-full py-3.5 rounded-lg border-2 border-slate-200 text-[#1A1725] font-bold text-[13px] hover:border-om-400 hover:text-om-400 transition-colors">
+                  Download App
                 </button>
               </div>
             </div>
 
-            {/* Right Column: Explanations */}
-            <div className="flex-1">
-              <span className="text-xs uppercase tracking-widest text-om-400 font-bold">Intelligent Support</span>
-              <h2 className="font-display font-black text-4xl sm:text-5xl text-slate-900 mt-2 mb-6">
-                Your Caring 24/7 AI Companion
-              </h2>
-              <p className="text-slate-600 leading-relaxed mb-8">
-                The OM Assistant is built to walk with you through every phase of your cancer recovery journey. It provides instantaneous, clinically aligned answers to help you navigate symptoms, emotional fatigue, and treatment schedules.
-              </p>
-
-              <div className="space-y-6">
-                <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-om-400/10 flex items-center justify-center text-om-400 flex-shrink-0">
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-display font-bold text-lg text-slate-900 mb-1">Tailored Oncology Knowledge</h3>
-                    <p className="text-slate-500 text-sm leading-relaxed">
-                      Equipped with support models focused exclusively on cancer recovery, chemotherapy side-effects, and daily comfort.
-                    </p>
-                  </div>
+            {/* Plan 2: Mitra Plus */}
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-md flex flex-col overflow-hidden">
+              <div className="bg-[#422C7C] p-6 text-center text-white">
+                <span className="text-[10px] font-bold text-white/80 uppercase tracking-widest mb-1.5 block">Monthly Plan</span>
+                <h3 className="font-bold text-2xl">Mitra Plus</h3>
+              </div>
+              <div className="p-6 flex flex-col flex-1">
+                <div className="flex items-end justify-center mb-6">
+                  <span className="font-bold text-2xl text-[#1A1725] mr-1">₹</span>
+                  <span className="font-black text-[42px] text-[#1A1725] leading-none">499</span>
+                  <span className="text-slate-500 text-sm font-medium mb-1 ml-1">/month</span>
                 </div>
-
-                <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-accent-cyan/10 flex items-center justify-center text-accent-cyan flex-shrink-0">
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                  </div>
-                  <div>
-                    <h3 className="font-display font-bold text-lg text-slate-900 mb-1">Confidential & Empathetic</h3>
-                    <p className="text-slate-500 text-sm leading-relaxed">
-                      Every conversation is fully encrypted and private. The tone is designed by oncology counselors to offer calm, zero-judgment assurance.
-                    </p>
-                  </div>
+                <ul className="flex flex-col gap-3.5 mb-8">
+                  <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-om-400 flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                    <span className="text-[14px] font-bold text-slate-800 leading-snug">Flat 10% OFF on all paid services in the app</span>
+                  </li>
+                </ul>
+                <div className="mt-auto">
+                  <button className="w-full py-3.5 rounded-lg bg-[#422C7C] hover:bg-om-400 text-white font-bold text-[13px] transition-colors shadow-md">
+                    Download App
+                  </button>
                 </div>
+              </div>
+            </div>
 
-                <div className="flex gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-accent-yellow/10 flex items-center justify-center text-accent-yellow flex-shrink-0">
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2-8H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2z" />
-                    </svg>
+            {/* Plan 3: Mitra Premium */}
+            <div className="bg-white rounded-2xl border border-slate-200 shadow-xl flex flex-col overflow-hidden relative transform lg:-translate-y-2 lg:scale-105 z-10">
+              <div className="absolute top-0 right-0 bg-[#EAB308] text-white text-[9px] font-black uppercase tracking-wider py-1 px-3 rounded-bl-lg shadow-sm z-20 flex items-center gap-1">
+                <svg className="w-3 h-3" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                Most Popular
+              </div>
+              <div className="bg-[#422C7C] p-6 text-center text-white pb-8">
+                <span className="text-[10px] font-bold text-white/80 uppercase tracking-widest mb-1.5 block">Monthly Plan</span>
+                <h3 className="font-bold text-2xl">Mitra Premium</h3>
+              </div>
+              <div className="p-6 flex flex-col flex-1 pt-4">
+                <div className="flex items-end justify-center mb-6">
+                  <span className="font-bold text-2xl text-[#1A1725] mr-1">₹</span>
+                  <span className="font-black text-[42px] text-[#1A1725] leading-none">999</span>
+                  <span className="text-slate-500 text-sm font-medium mb-1 ml-1">/month</span>
+                </div>
+                <ul className="flex flex-col gap-3.5 mb-8">
+                  <li className="flex items-start gap-3">
+                    <svg className="w-5 h-5 text-[#422C7C] flex-shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor"><path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" /></svg>
+                    <span className="text-[14px] font-bold text-slate-800 leading-snug">Flat 15% OFF on all paid services in the app</span>
+                  </li>
+                </ul>
+                <div className="mt-auto">
+                  <button className="w-full py-3.5 rounded-lg bg-[#422C7C] hover:bg-om-400 text-white font-bold text-[13px] transition-colors shadow-lg">
+                    Download App
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            {/* The OM Promise Panel */}
+            <div className="bg-gradient-to-br from-[#422C7C] to-[#2a1c52] rounded-2xl flex flex-col p-8 text-white shadow-lg justify-center relative overflow-hidden h-full lg:ml-6 transform transition-transform hover:scale-[1.02]">
+              <div className="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-white opacity-5 rounded-full blur-3xl"></div>
+              <div className="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-om-400 opacity-10 rounded-full blur-3xl"></div>
+
+              <div className="relative z-10">
+                <h4 className="font-serif font-bold text-3xl mb-4 leading-tight">
+                  Our Promise <br /> to You
+                </h4>
+                <p className="text-white/80 text-[13px] leading-relaxed mb-10">
+                  We are committed to providing a safe, confidential, and judgment-free space where you can share your fears and find the strength to fight back.
+                </p>
+                <div className="flex flex-col gap-5">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 text-om-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+                    </div>
+                    <span className="text-[14px] font-semibold">100% Confidential Care</span>
                   </div>
-                  <div>
-                    <h3 className="font-display font-bold text-lg text-slate-900 mb-1">Export for Medical Consultation</h3>
-                    <p className="text-slate-500 text-sm leading-relaxed">
-                      Log your symptom concerns in the chat and export a formatted summary report to share with your doctors during your next clinical appointment.
-                    </p>
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 text-om-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+                    </div>
+                    <span className="text-[14px] font-semibold">Certified Professionals</span>
                   </div>
                 </div>
               </div>
@@ -477,235 +524,178 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Interactive App Preview Showcase */}
-      <section id="preview" className="relative z-10 py-24 bg-white border-y border-om-900">
-        <div className="mx-auto max-w-7xl px-6">
-          
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="text-xs uppercase tracking-widest text-om-400 font-bold">Visual Walkthrough</span>
-            <h2 className="font-display font-black text-4xl sm:text-5xl text-slate-900 mt-2 mb-4">
-              Explore the Interface
+      {/* Advisory Board Section */}
+      <section className="relative z-10 py-16 bg-white border-t border-slate-100">
+        <div className="mx-auto max-w-[1400px] px-6 text-center">
+
+          <div className="mb-12">
+            <h2 className="font-serif font-black text-2xl sm:text-3xl text-slate-900">
+              Our Board of Advisory
             </h2>
-            <p className="text-lg text-slate-500">
-              Carefully designed interfaces featuring soothing colors and highly readable text layers.
-            </p>
+            <div className="flex items-center justify-center mt-3">
+              <div className="h-[1px] w-8 bg-slate-200"></div>
+              <svg className="w-3.5 h-3.5 mx-2 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
+              <div className="h-[1px] w-8 bg-slate-200"></div>
+            </div>
           </div>
 
-          {/* Screenshot columns */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-stretch">
-            
-            {/* Splash */}
-            <div className="glass-card rounded-3xl p-8 bg-slate-50/30 border border-slate-200 flex flex-col justify-between">
-              <div>
-                <span className="inline-block px-3 py-1 rounded-full bg-om-800 border border-om-700 text-xs font-bold text-om-100 mb-4 uppercase tracking-wider">
-                  Step 1: Get Started
-                </span>
-                <h3 className="font-display font-extrabold text-2xl text-slate-900 mb-3">Onboarding</h3>
-                <p className="text-slate-600 text-sm leading-relaxed mb-8">
-                  Welcome screen introducing users to therapeutic cancer support. Empathy-focused layouts greet users, setting a tranquil mood.
-                </p>
-              </div>
-              <div className="relative aspect-[9/19.5] w-full max-w-[230px] mx-auto rounded-[32px] overflow-hidden border border-slate-300 shadow-lg">
-                <Image
-                  src="/screenshot-splash.png"
-                  alt="Onboarding Screenshot"
-                  fill
-                  sizes="230px"
-                  className="object-cover"
-                />
-              </div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4 text-center">
+
+            {/* Advisor 1 */}
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-16 rounded-full bg-om-900 border border-om-800 flex items-center justify-center font-sans font-black text-lg text-om-400 mb-3 shadow-xs">AM</div>
+              <h4 className="font-bold text-slate-800 text-[11px] leading-tight mb-0.5">Dr. Anjali Mehta</h4>
+              <span className="text-[9px] text-slate-500 font-semibold">Psycho-Oncologist</span>
+              <p className="text-[8.5px] text-slate-400 mt-0.5">20+ Years Experience</p>
             </div>
 
-            {/* Dashboard */}
-            <div className="glass-card rounded-3xl p-8 bg-white border-2 border-om-400/30 shadow-xl shadow-om-400/5 relative flex flex-col justify-between">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-om-400 text-[10px] font-black text-white uppercase tracking-wider shadow-sm">
-                Primary View
-              </div>
-              <div>
-                <span className="inline-block px-3 py-1 rounded-full bg-om-800 border border-om-700 text-xs font-bold text-om-100 mb-4 uppercase tracking-wider">
-                  Step 2: Core Care
-                </span>
-                <h3 className="font-display font-extrabold text-2xl text-slate-900 mb-3">Daily Plan</h3>
-                <p className="text-slate-600 text-sm leading-relaxed mb-8">
-                  Track completed mindfulness breathing targets, review mood graphs over the last 7 days, and quickly initiate meditation or counselor booking.
-                </p>
-              </div>
-              <div className="relative aspect-[9/19.5] w-full max-w-[230px] mx-auto rounded-[32px] overflow-hidden border border-slate-300 shadow-lg">
-                <Image
-                  src="/screenshot-dashboard-1.png"
-                  alt="Dashboard Screenshot"
-                  fill
-                  sizes="230px"
-                  className="object-cover"
-                />
-              </div>
+            {/* Advisor 2 */}
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-16 rounded-full bg-om-900 border border-om-800 flex items-center justify-center font-sans font-black text-lg text-om-400 mb-3 shadow-xs">RK</div>
+              <h4 className="font-bold text-slate-800 text-[11px] leading-tight mb-0.5">Dr. Ritesh Kapoor</h4>
+              <span className="text-[9px] text-slate-500 font-semibold">Yoga &amp; Wellness Expert</span>
+              <p className="text-[8.5px] text-slate-400 mt-0.5">20+ Years Experience</p>
             </div>
 
-            {/* Live Sessions */}
-            <div className="glass-card rounded-3xl p-8 bg-slate-50/30 border border-slate-200 flex flex-col justify-between">
-              <div>
-                <span className="inline-block px-3 py-1 rounded-full bg-om-800 border border-om-700 text-xs font-bold text-om-100 mb-4 uppercase tracking-wider">
-                  Step 3: Access Panel
-                </span>
-                <h3 className="font-display font-extrabold text-2xl text-slate-900 mb-3">Specialists</h3>
-                <p className="text-slate-600 text-sm leading-relaxed mb-8">
-                  Join interactive session rooms with Dr. Aarav Mehta and other leading oncologists to address fatigue and side effects.
-                </p>
-              </div>
-              <div className="relative aspect-[9/19.5] w-full max-w-[230px] mx-auto rounded-[32px] overflow-hidden border border-slate-300 shadow-lg">
-                <Image
-                  src="/screenshot-dashboard-2.png"
-                  alt="Specialist Rooms Screenshot"
-                  fill
-                  sizes="230px"
-                  className="object-cover"
-                />
-              </div>
+            {/* Advisor 3 */}
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-16 rounded-full bg-om-900 border border-om-800 flex items-center justify-center font-sans font-black text-lg text-om-400 mb-3 shadow-xs">KR</div>
+              <h4 className="font-bold text-slate-800 text-[11px] leading-tight mb-0.5">Ms. Kavita Rao</h4>
+              <span className="text-[9px] text-slate-500 font-semibold">Nutritionist</span>
+              <p className="text-[8.5px] text-slate-400 mt-0.5">18+ Years Experience</p>
+            </div>
+
+            {/* Advisor 4 */}
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-16 rounded-full bg-om-900 border border-om-800 flex items-center justify-center font-sans font-black text-lg text-om-400 mb-3 shadow-xs">NB</div>
+              <h4 className="font-bold text-slate-800 text-[11px] leading-tight mb-0.5">Dr. Neha Bansal</h4>
+              <span className="text-[9px] text-slate-500 font-semibold">Integrative Therapist</span>
+              <p className="text-[8.5px] text-slate-400 mt-0.5">15+ Years Experience</p>
+            </div>
+
+            {/* Advisor 5 */}
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-16 rounded-full bg-om-900 border border-om-800 flex items-center justify-center font-sans font-black text-lg text-om-400 mb-3 shadow-xs">AM</div>
+              <h4 className="font-bold text-slate-800 text-[11px] leading-tight mb-0.5">Mr. Arjun Malhotra</h4>
+              <span className="text-[9px] text-slate-500 font-semibold">Onco Coach</span>
+              <p className="text-[8.5px] text-slate-400 mt-0.5">12+ Years Experience</p>
+            </div>
+
+            {/* Advisor 6 */}
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-16 rounded-full bg-om-900 border border-om-800 flex items-center justify-center font-sans font-black text-lg text-om-400 mb-3 shadow-xs">VS</div>
+              <h4 className="font-bold text-slate-800 text-[11px] leading-tight mb-0.5">Dr. Vivek Sharma</h4>
+              <span className="text-[9px] text-slate-500 font-semibold">Mind-Body Specialist</span>
+              <p className="text-[8.5px] text-slate-400 mt-0.5">20+ Years Experience</p>
+            </div>
+
+            {/* Advisor 7 */}
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-16 rounded-full bg-om-900 border border-om-800 flex items-center justify-center font-sans font-black text-lg text-om-400 mb-3 shadow-xs">PI</div>
+              <h4 className="font-bold text-slate-800 text-[11px] leading-tight mb-0.5">Ms. Pooja Iyer</h4>
+              <span className="text-[9px] text-slate-500 font-semibold">Art Therapist</span>
+              <p className="text-[8.5px] text-slate-400 mt-0.5">10+ Years Experience</p>
+            </div>
+
+            {/* Advisor 8 */}
+            <div className="flex flex-col items-center">
+              <div className="w-16 h-16 rounded-full bg-om-900 border border-om-800 flex items-center justify-center font-sans font-black text-lg text-om-400 mb-3 shadow-xs">SK</div>
+              <h4 className="font-bold text-slate-800 text-[11px] leading-tight mb-0.5">Dr. Sandeep Kulkarni</h4>
+              <span className="text-[9px] text-slate-500 font-semibold">Holistic Health Expert</span>
+              <p className="text-[8.5px] text-slate-400 mt-0.5">25+ Years Experience</p>
             </div>
 
           </div>
-        </div>
-      </section>
 
-      {/* Team / Doctors Section */}
-      <section id="team" className="relative z-10 py-24 bg-om-950">
-        <div className="mx-auto max-w-7xl px-6">
-          
-          <div className="flex flex-col lg:flex-row items-center gap-16">
-            
-            {/* Left side: Image of Doctors */}
-            <div className="flex-1 w-full max-w-xl relative">
-              <div className="absolute -inset-2 bg-gradient-to-r from-om-400 to-accent-cyan rounded-3xl blur-lg opacity-10 z-0" />
-              <div className="relative aspect-[4/3] rounded-3xl overflow-hidden border border-slate-200 shadow-lg z-10">
-                <Image
-                  src="/doctors.jpg"
-                  alt="Oncology Mitra Medical Panel"
-                  fill
-                  sizes="576px"
-                  className="object-cover"
-                />
-              </div>
-            </div>
-
-            {/* Right side: Panel Description & Badges */}
-            <div className="flex-1">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white border border-slate-200 text-om-100 text-xs font-semibold uppercase tracking-wider mb-6 shadow-sm">
-                Empathetic Medical Team
-              </div>
-              
-              <h2 className="font-display font-black text-4xl sm:text-5xl text-slate-900 mb-6">
-                Specialized Cancer Care Specialists
-              </h2>
-
-              <p className="text-slate-600 leading-relaxed mb-8">
-                Our board-certified oncologists, oncology-trained therapists, psychologists, and clinical nutritionists are unified by a single core promise: <strong>we walk with you</strong>. We deliver holistic, structured guidance to make your recovery plan clear, supportive, and compassionate.
-              </p>
-
-              {/* Doctors/Office Badges with descriptive headings */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="flex gap-3">
-                  <div className="w-5 h-5 rounded-full bg-om-400 flex-shrink-0 mt-1" />
-                  <div>
-                    <h4 className="font-bold text-slate-800 text-sm">Emotional Support</h4>
-                    <p className="text-xs text-slate-500">Therapists specialized in anxiety during cycles.</p>
-                  </div>
-                </div>
-                <div className="flex gap-3">
-                  <div className="w-5 h-5 rounded-full bg-accent-cyan flex-shrink-0 mt-1" />
-                  <div>
-                    <h4 className="font-bold text-slate-800 text-sm">Caregiver Support</h4>
-                    <p className="text-xs text-slate-500">Coordinating therapy resources for families.</p>
-                  </div>
-                </div>
-                <div className="flex gap-3">
-                  <div className="w-5 h-5 rounded-full bg-emerald-600 flex-shrink-0 mt-1" />
-                  <div>
-                    <h4 className="font-bold text-slate-800 text-sm">Support Groups</h4>
-                    <p className="text-xs text-slate-500">Peer groups discussing side effects & habits.</p>
-                  </div>
-                </div>
-                <div className="flex gap-3">
-                  <div className="w-5 h-5 rounded-full bg-accent-yellow flex-shrink-0 mt-1" />
-                  <div>
-                    <h4 className="font-bold text-slate-800 text-sm">Expert Guidance</h4>
-                    <p className="text-xs text-slate-500">Consultations with clinical staff & coordinators.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+          <div className="mt-10">
+            <a href="#team" className="inline-flex items-center gap-1.5 text-xs font-bold text-om-400 hover:text-om-300 transition-colors">
+              View Full Advisory Board &rarr;
+            </a>
           </div>
-        </div>
-      </section>
-
-      {/* Compassion Banner (Ribbon & Quotes Block) */}
-      <section id="values" className="relative z-10 py-24 bg-om-900 border-t border-om-800">
-        <div className="mx-auto max-w-5xl px-6 text-center relative z-10">
-          
-          <div className="w-20 h-20 mx-auto rounded-full bg-om-400/10 border border-om-400/25 flex items-center justify-center mb-8 text-om-100 shadow-sm">
-            <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-            </svg>
-          </div>
-
-          <blockquote className="font-display font-black text-3xl sm:text-4xl lg:text-5xl leading-tight text-slate-900 mb-8 max-w-4xl mx-auto">
-            &ldquo;Because every cancer journey deserves care, compassion, and support.&rdquo;
-          </blockquote>
-          
-          <div className="h-[2.5px] w-24 bg-gradient-to-r from-transparent via-om-400 to-transparent mx-auto mb-6" />
-
-          <p className="font-display text-xl sm:text-2xl text-om-100 font-bold uppercase tracking-widest">
-            You are not alone. We are here.
-          </p>
 
         </div>
       </section>
 
-      {/* Download CTA Section */}
-      <section id="download" className="relative z-10 py-24 bg-white border-t border-om-900">
-        <div className="mx-auto max-w-7xl px-6">
-          <div className="glass-card rounded-[40px] p-8 sm:p-16 relative overflow-hidden border border-om-800 bg-gradient-to-br from-[#FDFCFD] to-[#FAF9FC]">
-            
-            <div className="max-w-3xl mx-auto text-center relative z-10">
-              <h2 className="font-display font-black text-4xl sm:text-5xl text-slate-900 mb-6">
-                Start Your Calming Journey with OM
-              </h2>
-              <p className="text-lg text-slate-600 mb-10 leading-relaxed max-w-2xl mx-auto">
-                Get specialized cancer therapy & support, whenever you need it. Download the app today and find your dedicated companion.
-              </p>
+      {/* "A Community That Cares" Section */}
+      <section id="community" className="relative z-10 py-16 bg-white border-t border-slate-100">
+        <div className="mx-auto max-w-[1400px] px-6">
+          <div className="bg-[#FAF9FB] rounded-3xl p-6 sm:p-10">
+            <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-center">
 
-              {/* Real SVG App Badges */}
-              <div className="flex flex-col sm:flex-row justify-center items-center gap-5">
-                
-                {/* App Store Badge */}
-                <a
-                  href="#"
-                  className="flex items-center gap-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-2xl px-6 py-3 w-56 shadow-md transition-all hover:scale-[1.02]"
-                >
-                  <svg className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M18.71 19.5C17.88 20.74 17 21.95 15.66 21.97C14.32 22 13.89 21.18 12.37 21.18C10.84 21.18 10.37 21.95 9.1 22C7.79 22.05 6.8 20.68 5.96 19.47C4.25 17 2.94 12.45 4.7 9.39C5.57 7.87 7.13 6.91 8.82 6.88C10.1 6.86 11.32 7.75 12.11 7.75C12.89 7.75 14.37 6.68 15.92 6.84C16.57 6.87 18.39 7.1 19.56 8.82C19.47 8.88 17.39 10.1 17.41 12.63C17.44 15.65 20.06 16.66 20.1 16.67C20.08 16.74 19.67 18.11 18.71 19.5M15.97 4.17C16.63 3.37 17.07 2.28 16.95 1C15.99 1.04 14.83 1.64 14.14 2.45C13.53 3.17 13 4.28 13.15 5.54C14.21 5.62 15.3 5 15.97 4.17Z" />
-                  </svg>
-                  <div className="text-left">
-                    <div className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Download on the</div>
-                    <div className="text-sm font-bold text-white font-display">App Store</div>
-                  </div>
+              {/* Left Column Description */}
+              <div className="xl:col-span-3 bg-[#422C7C] rounded-2xl p-8 text-white shadow-lg h-full flex flex-col justify-center">
+                <h2 className="font-serif font-black text-2xl sm:text-3xl leading-tight mb-4">
+                  OM Community <br />
+                  That Cares
+                </h2>
+                <p className="text-white/80 text-[13px] leading-relaxed mb-8">
+                  Join thousands of patients, survivors and caregivers who support, uplift and grow together every day.
+                </p>
+                <a href="#download" className="inline-flex h-11 items-center justify-center rounded-lg bg-white hover:bg-slate-50 px-6 text-xs font-bold text-[#422C7C] shadow-sm transition-transform hover:scale-[1.02]">
+                  Download App to Join
                 </a>
-
-                {/* Google Play Badge */}
-                <a
-                  href="#"
-                  className="flex items-center gap-3 bg-slate-900 hover:bg-slate-800 border border-slate-800 rounded-2xl px-6 py-3 w-56 shadow-md transition-all hover:scale-[1.02]"
-                >
-                  <svg className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M3 5.27v13.46c0 .91.95 1.5 1.76 1.08l12.88-6.73a1.2 1.2 0 0 0 0-2.16L4.76 4.19C3.95 3.77 3 4.36 3 5.27zm1.8 1.58L15 12 4.8 17.15V6.85z" />
-                  </svg>
-                  <div className="text-left">
-                    <div className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Get it on</div>
-                    <div className="text-sm font-bold text-white font-display">Google Play</div>
-                  </div>
-                </a>
-
               </div>
+
+              {/* Middle Images Row */}
+              <div className="xl:col-span-7 flex flex-row gap-4 h-[240px]">
+                <div className="w-1/4 rounded-xl overflow-hidden shadow-paper border border-slate-200 bg-white">
+                  <img src="/support_group_1.jpg" alt="Support group" className="w-full h-full object-cover" />
+                </div>
+                <div className="w-1/4 rounded-xl overflow-hidden shadow-paper border border-slate-200 bg-white">
+                  <img src="/caregiver_patient.jpg" alt="Caregiver support" className="w-full h-full object-cover" />
+                </div>
+                <div className="w-1/4 rounded-xl overflow-hidden shadow-paper border border-slate-200 bg-white p-2">
+                  <img src="/app_mockup.jpg" alt="Mood tracker app" className="w-full h-full object-contain" />
+                </div>
+                <div className="w-1/4 rounded-xl overflow-hidden shadow-paper border border-slate-200 bg-white">
+                  <img src="/candles.jpg" alt="Lighting candles for hope" className="w-full h-full object-cover" />
+                </div>
+              </div>
+
+              {/* Right Column Sticky Note */}
+              <div className="xl:col-span-2 flex justify-center items-center h-full">
+                <div className="bg-[#FFF9E6] border border-[#F3E5AB] shadow-md p-6 rounded-xl w-full max-w-[220px] transform -rotate-1 relative">
+                  <div className="absolute top-2 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-red-500 shadow-inner" />
+                  <span className="block text-2xl font-serif text-slate-350 leading-none mb-2">&ldquo;</span>
+                  <p className="text-slate-700 text-[11.5px] leading-relaxed italic font-medium">
+                    Oncology Mitra gave me hope, strength and a path when everything felt overwhelming. I am not alone anymore.
+                  </p>
+                  <div className="text-right text-[10px] font-bold text-[#422C7C] mt-4 font-sans">
+                    &mdash; A Survivor
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Middle CTA banner */}
+      <section className="relative z-10 py-12 bg-[#422C7C] text-white">
+        <div className="mx-auto max-w-[1400px] px-6">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
+
+            <div className="flex items-center gap-6">
+              <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0">
+                <svg className="w-8 h-8 text-white/90" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21a9 9 0 01-9-9 9 9 0 019-9 9 9 0 019 9 9 9 0 01-9 9m0-16.5A7.5 7.5 0 004.5 12a7.5 7.5 0 007.5 7.5 7.5 7.5 0 007.5-7.5 7.5 7.5 0 00-7.5-7.5z" /></svg>
+              </div>
+              <div>
+                <h3 className="font-serif font-black text-xl mb-1">We don't treat cancer.</h3>
+                <h3 className="font-serif font-black text-xl text-white/90">We stand beside you.</h3>
+              </div>
+            </div>
+
+            <div className="flex-1 lg:pl-12 lg:border-l border-white/20">
+              <p className="text-[14px] leading-relaxed font-medium max-w-2xl">
+                Our certified onco coaches transform your difficult journey into a painless path with holistic care and compassion.
+              </p>
+            </div>
+
+            <div className="flex-shrink-0">
+              <a href="#download" className="inline-flex h-12 items-center justify-center rounded-lg border-2 border-white/30 hover:border-white px-8 text-[13px] font-bold text-white transition-colors">
+                Download the OM App &rarr;
+              </a>
             </div>
 
           </div>
@@ -713,33 +703,119 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="relative z-10 border-t border-slate-200 bg-white py-12 text-sm text-slate-500">
-        <div className="mx-auto max-w-7xl px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
-            <div className="relative w-8 h-8 rounded-full overflow-hidden border border-om-400/20">
-              <Image
-                src="/logo.png"
-                alt="OM Logo"
-                fill
-                sizes="32px"
-                className="object-cover"
-              />
+      <footer id="contact" className="relative z-10 border-t border-slate-150 bg-white pt-20 pb-12 text-sm text-slate-500">
+        <div className="mx-auto max-w-[1400px] px-6">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-slate-200/60 text-left">
+
+            {/* Logo/Info Col */}
+            <div className="lg:col-span-3 flex flex-col gap-4">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-full border border-om-400/20 bg-white flex items-center justify-center overflow-hidden">
+                  <img src="/logo.png" alt="OM Logo" className="w-full h-full object-cover" />
+                </div>
+                <LogoText className="text-[17px]" />
+              </div>
+              <p className="text-[11px] text-slate-400 leading-relaxed pr-6 mt-2">
+                A holistic cancer support platform providing counselling, therapies and community care to help you heal, grow and thrive.
+              </p>
+              <div className="flex items-center gap-3 mt-1 text-slate-400">
+                <a href="#" className="hover:text-om-400 transition-colors"><svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.75z" /></svg></a>
+                <a href="#" className="hover:text-om-400 transition-colors"><svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" /></svg></a>
+                <a href="#" className="hover:text-om-400 transition-colors"><svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M23.498 6.163a3.003 3.003 0 00-2.11-2.11C19.518 3.545 12 3.545 12 3.545s-7.519 0-9.388.508a3.003 3.003 0 00-2.11 2.11C0 8.033 0 12 0 12s0 3.967.502 5.837a3.003 3.003 0 002.11 2.11c1.869.508 9.388.508 9.388.508s7.518 0 9.388-.508a3.003 3.003 0 002.11-2.11C24 15.967 24 12 24 12s0-3.967-.502-5.837zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" /></svg></a>
+                <a href="#" className="hover:text-om-400 transition-colors"><svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" /></svg></a>
+              </div>
             </div>
-            <div className="flex flex-col">
-              <span className="font-display font-black text-base text-slate-800 tracking-wider">OM</span>
-              <span className="text-[8px] uppercase tracking-widest text-slate-400">Oncology Mitra</span>
+
+            {/* Quick Links */}
+            <div className="lg:col-span-2 flex flex-col gap-3">
+              <h4 className="font-bold text-slate-800 text-[10px] uppercase tracking-widest mb-1">Quick Links</h4>
+              <ul className="flex flex-col gap-2.5 text-[10px] font-bold">
+                <li><a href="#" className="hover:text-[#422C7C] transition-colors">Home</a></li>
+                <li><a href="#how-it-works" className="hover:text-[#422C7C] transition-colors">About Us</a></li>
+                <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Our Services</a></li>
+                <li><a href="#how-it-works" className="hover:text-[#422C7C] transition-colors">For Patients</a></li>
+                <li><a href="#community" className="hover:text-[#422C7C] transition-colors">OM Community</a></li>
+                <li><a href="#resources" className="hover:text-[#422C7C] transition-colors">Resources</a></li>
+                <li><a href="#contact" className="hover:text-[#422C7C] transition-colors">Contact Us</a></li>
+              </ul>
+            </div>
+
+            {/* Our Services */}
+            <div className="lg:col-span-2 flex flex-col gap-3">
+              <h4 className="font-bold text-slate-800 text-[10px] uppercase tracking-widest mb-1">Our Services</h4>
+              <ul className="flex flex-col gap-2.5 text-[10px] font-bold">
+                <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Counselling &amp; Guidance</a></li>
+                <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Nutrition &amp; Diet Planning</a></li>
+                <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Yoga &amp; Meditation</a></li>
+                <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Alternative Therapies</a></li>
+                <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Art Therapy</a></li>
+                <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Music Therapy</a></li>
+                <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Sound Healing</a></li>
+                <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Mood Tracker</a></li>
+                <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Books &amp; Journals</a></li>
+              </ul>
+            </div>
+
+            {/* OM Community / Resources */}
+            <div className="lg:col-span-2 flex flex-col gap-3">
+              <h4 className="font-bold text-slate-800 text-[10px] uppercase tracking-widest mb-1">OM Community</h4>
+              <ul className="flex flex-col gap-2.5 text-[10px] font-bold mb-4">
+                <li><a href="#community" className="hover:text-[#422C7C] transition-colors">Community Home</a></li>
+                <li><a href="#community" className="hover:text-[#422C7C] transition-colors">Support Groups</a></li>
+                <li><a href="#community" className="hover:text-[#422C7C] transition-colors">Events &amp; Workshops</a></li>
+                <li><a href="#community" className="hover:text-[#422C7C] transition-colors">Stories</a></li>
+                <li><a href="#community" className="hover:text-[#422C7C] transition-colors">Caregiver Corner</a></li>
+              </ul>
+
+              <h4 className="font-bold text-slate-800 text-[10px] uppercase tracking-widest mb-1">Resources</h4>
+              <ul className="flex flex-col gap-2.5 text-[10px] font-bold">
+                <li><a href="#" className="hover:text-[#422C7C] transition-colors">Blog</a></li>
+                <li><a href="#" className="hover:text-[#422C7C] transition-colors">Articles</a></li>
+                <li><a href="#" className="hover:text-[#422C7C] transition-colors">Videos</a></li>
+                <li><a href="#" className="hover:text-[#422C7C] transition-colors">Guides</a></li>
+                <li><a href="#" className="hover:text-[#422C7C] transition-colors">FAQs</a></li>
+              </ul>
+            </div>
+
+            {/* Contact Details */}
+            <div className="lg:col-span-3 flex flex-col gap-4 text-xs">
+              <h4 className="font-bold text-slate-800 text-[10px] uppercase tracking-widest mb-1">Contact Us</h4>
+
+              <div className="flex gap-2">
+                <svg className="w-3.5 h-3.5 text-om-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
+                <p className="text-slate-500 leading-relaxed text-[10px] font-medium">
+                  E-1990, Opposite Kaul Park,<br />Rajajipuram, Lucknow,<br />Uttar Pradesh &ndash; 226017
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <svg className="w-3.5 h-3.5 text-om-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+                <span className="text-slate-500 font-bold text-[10px]">+91 95654 45699</span>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <svg className="w-3.5 h-3.5 text-om-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                <a href="mailto:hello@oncologymitra.com" className="text-slate-500 hover:text-[#422C7C] font-medium text-[10px]">hello@oncologymitra.com</a>
+              </div>
+
+              <div className="flex items-center gap-2">
+                <svg className="w-3.5 h-3.5 text-om-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
+                <a href="https://www.oncologymitra.com" target="_blank" className="text-slate-500 hover:text-[#422C7C] font-medium text-[10px]">www.oncologymitra.com</a>
+              </div>
+            </div>
+
+          </div>
+
+          <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-[10px] text-slate-450 font-sans">
+            <p>&copy; {new Date().getFullYear()} Oncology Mitra. All Rights Reserved.</p>
+            <div className="flex items-center gap-4 font-medium">
+              <a href="#" className="hover:text-slate-800 transition-colors">Privacy Policy</a>
+              <span>|</span>
+              <a href="#" className="hover:text-slate-800 transition-colors">Terms &amp; Conditions</a>
             </div>
           </div>
 
-          <p className="text-center md:text-left">
-            &copy; {new Date().getFullYear()} Oncology Mitra. We walk with you. All rights reserved.
-          </p>
-
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-slate-800 transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-slate-800 transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-slate-800 transition-colors">Contact Support</a>
-          </div>
         </div>
       </footer>
 

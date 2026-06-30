@@ -1,16 +1,16 @@
-import { Outfit, Inter } from "next/font/google";
+import { Lora, Outfit } from "next/font/google";
 import "./globals.css";
+
+const lora = Lora({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  weight: ["400", "500", "600", "700"],
+});
 
 const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-outfit",
-  weight: ["400", "600", "700", "900"],
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-sans",
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata = {
@@ -23,9 +23,9 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${inter.variable} h-full antialiased`}
+      className={`${lora.variable} ${outfit.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-[#FAF9FB] text-[#1F1D2E]">{children}</body>
+      <body className="min-h-full flex flex-col font-sans bg-[#FAF9FB] text-[#1A1725]">{children}</body>
     </html>
   );
 }
