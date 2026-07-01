@@ -8,6 +8,7 @@ export default function Home() {
   const [submitted, setSubmitted] = useState(false);
   const [phoneScreen, setPhoneScreen] = useState("home");
   const [selectedMood, setSelectedMood] = useState(null);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleWaitlistSubmit = (e) => {
     e.preventDefault();
@@ -42,12 +43,12 @@ export default function Home() {
 
       {/* Header / Navbar */}
       <header className="sticky top-0 z-50 w-full glass-nav shadow-sm">
-        <div className="mx-auto max-w-[1400px] px-6 h-28 flex items-center justify-between">
-          <div className="flex items-center gap-5">
-            <div className="w-20 h-20 rounded-full overflow-hidden border border-om-400/20 bg-white flex-shrink-0 shadow-sm">
+        <div className="mx-auto max-w-[1400px] px-4 sm:px-6 h-20 sm:h-28 flex items-center justify-between transition-all duration-300">
+          <div className="flex items-center gap-3 sm:gap-5">
+            <div className="w-12 h-12 sm:w-20 sm:h-20 rounded-full overflow-hidden border border-om-400/20 bg-white flex-shrink-0 shadow-sm transition-all duration-300">
               <img src="/logo.png" alt="OM Logo" className="w-full h-full object-cover" />
             </div>
-            <img src="/logo-text.png" alt="Oncology Mitra" className="h-10 w-auto object-contain" />
+            <img src="/logo-text.png" alt="Oncology Mitra" className="h-7 sm:h-10 w-auto object-contain transition-all duration-300" />
           </div>
 
           {/* Navigation Links */}
@@ -56,7 +57,6 @@ export default function Home() {
             <a href="#how-it-works" className="hover:text-om-400 transition-colors pb-1">About Us</a>
             <a href="#services" className="hover:text-om-400 transition-colors pb-1 flex items-center gap-1">
               Our Services
-
             </a>
             <a href="#how-it-works" className="hover:text-om-400 transition-colors pb-1">For Patients</a>
             <a href="#community" className="hover:text-om-400 transition-colors pb-1">OM Community</a>
@@ -65,20 +65,50 @@ export default function Home() {
             <a href="#contact" className="hover:text-om-400 transition-colors pb-1">Contact Us</a>
           </nav>
 
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2 sm:gap-6">
             <div className="hidden lg:flex items-center gap-2 border border-slate-200 rounded-full px-4 py-2 bg-white shadow-xs">
               <svg className="w-4 h-4 text-om-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
               <span className="text-xs font-bold text-slate-800">+91 95654 45699</span>
             </div>
             <a
               href="#download"
-              className="inline-flex h-11 items-center justify-center rounded-lg bg-om-400 hover:bg-om-300 px-6 text-xs font-bold text-white shadow-sm transition-colors"
+              className="hidden sm:inline-flex h-11 items-center justify-center rounded-lg bg-om-400 hover:bg-om-300 px-6 text-xs font-bold text-white shadow-sm transition-colors"
             >
               Download App
             </a>
+
+            {/* Mobile Hamburger Menu Toggle */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="flex xl:hidden items-center justify-center p-2 rounded-lg text-slate-700 hover:bg-slate-100 hover:text-om-400 transition-colors ml-2"
+              aria-label="Toggle mobile menu"
+            >
+              {mobileMenuOpen ? (
+                <svg className="w-6 h-6 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-6 h-6 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
           </div>
         </div>
       </header>
+
+      {/* Mobile Navigation Dropdown Drawer */}
+      <div className={`xl:hidden fixed left-0 right-0 bg-white/95 backdrop-blur-md border-b border-slate-150 shadow-lg transition-all duration-300 ease-in-out z-40 overflow-hidden ${mobileMenuOpen ? 'top-20 sm:top-28 max-h-[380px] opacity-100' : 'top-[-380px] max-h-0 opacity-0 pointer-events-none'}`}>
+        <nav className="flex flex-col p-6 gap-3.5 text-xs font-bold text-slate-700 text-left">
+          <a href="#" onClick={() => setMobileMenuOpen(false)} className="hover:text-om-400 transition-colors py-2 border-b border-slate-50">Home</a>
+          <a href="#how-it-works" onClick={() => setMobileMenuOpen(false)} className="hover:text-om-400 transition-colors py-2 border-b border-slate-50">About Us</a>
+          <a href="#services" onClick={() => setMobileMenuOpen(false)} className="hover:text-om-400 transition-colors py-2 border-b border-slate-50">Our Services</a>
+          <a href="#how-it-works" onClick={() => setMobileMenuOpen(false)} className="hover:text-om-400 transition-colors py-2 border-b border-slate-50">For Patients</a>
+          <a href="#community" onClick={() => setMobileMenuOpen(false)} className="hover:text-om-400 transition-colors py-2 border-b border-slate-50">OM Community</a>
+          <a href="#contact" onClick={() => setMobileMenuOpen(false)} className="hover:text-om-400 transition-colors py-2">Contact Us</a>
+          <a href="#download" onClick={() => setMobileMenuOpen(false)} className="inline-flex sm:hidden h-10 items-center justify-center rounded-lg bg-om-400 hover:bg-om-300 text-white font-bold text-center mt-2">Download App</a>
+        </nav>
+      </div>
 
       {/* Hero Section */}
       <section className="relative z-10 w-full overflow-hidden bg-gradient-to-br from-[#F5F2FC] to-white pt-10 pb-0">
@@ -86,9 +116,9 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row items-stretch gap-10">
 
             {/* Left Column Content */}
-            <div className="lg:w-[45%] text-left flex flex-col justify-center pb-16 pt-10">
+            <div className="w-full lg:w-[45%] text-left flex flex-col justify-center pb-10 lg:pb-16 pt-10">
 
-              <h1 className="font-serif font-black text-5xl sm:text-[64px] leading-[1.1] tracking-tight text-[#1A1725]">
+              <h1 className="font-serif font-black text-4xl sm:text-5xl lg:text-[64px] leading-[1.1] tracking-tight text-[#1A1725]">
                 You focus on <br />
                 healing. <br />
                 <span className="text-om-400">
@@ -102,35 +132,35 @@ export default function Home() {
               </p>
 
               {/* Horizontal Features */}
-              <div className="flex items-center gap-6 mt-8 mb-10">
+              <div className="grid grid-cols-2 sm:flex sm:items-center gap-4 sm:gap-6 mt-8 mb-10">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-om-900 flex items-center justify-center text-om-400">
+                  <div className="w-8 h-8 rounded-full bg-om-900 flex items-center justify-center text-om-400 flex-shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" /></svg>
                   </div>
-                  <span className="text-[10px] font-bold text-slate-800 leading-tight w-16">Certified<br />Onco Coaches</span>
+                  <span className="text-[10px] font-bold text-slate-800 leading-tight">Certified<br />Onco Coaches</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-om-900 flex items-center justify-center text-om-400">
+                  <div className="w-8 h-8 rounded-full bg-om-900 flex items-center justify-center text-om-400 flex-shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /></svg>
                   </div>
-                  <span className="text-[10px] font-bold text-slate-800 leading-tight w-16">Holistic<br />Wellness</span>
+                  <span className="text-[10px] font-bold text-slate-800 leading-tight">Holistic<br />Wellness</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-om-900 flex items-center justify-center text-om-400">
+                  <div className="w-8 h-8 rounded-full bg-om-900 flex items-center justify-center text-om-400 flex-shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                   </div>
-                  <span className="text-[10px] font-bold text-slate-800 leading-tight w-20">Compassionate<br />Community</span>
+                  <span className="text-[10px] font-bold text-slate-800 leading-tight">Compassionate<br />Community</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-om-900 flex items-center justify-center text-om-400">
+                  <div className="w-8 h-8 rounded-full bg-om-900 flex items-center justify-center text-om-400 flex-shrink-0">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
                   </div>
-                  <span className="text-[10px] font-bold text-slate-800 leading-tight w-20">Safe. Trusted.<br />Confidential.</span>
+                  <span className="text-[10px] font-bold text-slate-800 leading-tight">Safe. Trusted.<br />Confidential.</span>
                 </div>
               </div>
 
               {/* CTAs */}
-              <div className="flex items-center gap-6">
+              <div className="flex flex-wrap items-center gap-4 sm:gap-6">
                 <a href="#download" className="inline-flex h-12 items-center justify-center rounded-lg bg-om-400 hover:bg-om-300 px-6 text-xs font-bold text-white shadow-md transition-transform hover:scale-[1.02]">
                   Download the OM App &rarr;
                 </a>
@@ -144,9 +174,9 @@ export default function Home() {
             </div>
 
             {/* Right Side (Image + Vertical Overlay) */}
-            <div className="lg:w-[55%] relative flex items-end">
+            <div className="w-full lg:w-[55%] h-[420px] sm:h-[550px] lg:h-auto relative flex items-end overflow-hidden lg:overflow-visible rounded-3xl lg:rounded-none">
 
-              <div className="absolute top-0 bottom-0 -left-10 right-0 z-0 overflow-hidden rounded-r-2xl">
+              <div className="absolute inset-0 lg:-left-10 z-0 overflow-hidden rounded-3xl lg:rounded-r-2xl lg:rounded-l-none">
                 <div className="w-full h-full relative" style={{ maskImage: 'linear-gradient(to right, transparent 0%, black 10%, black 100%)' }}>
                   <img src="/doctors.jpg" alt="Medical Panel" className="w-full h-full object-cover object-center" />
                 </div>
@@ -414,8 +444,8 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-3">
 
             {/* Col 1 */}
-            <div className="flex items-center gap-6 p-6">
-              <div className="w-40 h-24 flex-shrink-0 rounded-lg overflow-hidden shadow-inner">
+            <div className="flex items-center gap-4 sm:gap-6 p-6">
+              <div className="w-28 h-18 sm:w-40 sm:h-24 flex-shrink-0 rounded-lg overflow-hidden shadow-inner">
                 <img src="/holding_hands.jpg" alt="Holding Hands" className="w-full h-full object-cover" />
               </div>
               <p className="font-bold text-sm leading-snug">
@@ -424,7 +454,7 @@ export default function Home() {
             </div>
 
             {/* Col 2 */}
-            <div className="flex items-center gap-6 p-6 lg:border-l border-white/20">
+            <div className="flex items-center gap-4 sm:gap-6 p-6 border-t lg:border-t-0 lg:border-l border-white/10 lg:border-white/20">
               <div className="flex-shrink-0">
                 <svg className="w-12 h-12 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 16v.01M15 10a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
               </div>
@@ -435,7 +465,7 @@ export default function Home() {
             </div>
 
             {/* Col 3 */}
-            <div className="flex items-center gap-6 p-6 lg:border-l border-white/20">
+            <div className="flex items-center gap-4 sm:gap-6 p-6 border-t lg:border-t-0 lg:border-l border-white/10 lg:border-white/20">
               <div className="flex-shrink-0 w-12 h-12 rounded-full bg-white flex items-center justify-center shadow-lg">
                 <svg className="w-6 h-6 text-om-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" /></svg>
               </div>
@@ -827,17 +857,17 @@ export default function Home() {
               </div>
 
               {/* Middle Images Row */}
-              <div className="xl:col-span-7 flex flex-row gap-4 h-[240px]">
-                <div className="w-1/4 rounded-xl overflow-hidden shadow-paper border border-slate-200 bg-white">
+              <div className="xl:col-span-7 flex flex-row gap-4 h-[180px] sm:h-[240px] overflow-x-auto xl:overflow-x-visible pb-2 xl:pb-0 scrollbar-none w-full">
+                <div className="w-[140px] sm:w-[180px] xl:w-1/4 rounded-xl overflow-hidden shadow-paper border border-slate-200 bg-white flex-shrink-0 xl:flex-shrink">
                   <img src="/support_group_1.jpg" alt="Support group" className="w-full h-full object-cover" />
                 </div>
-                <div className="w-1/4 rounded-xl overflow-hidden shadow-paper border border-slate-200 bg-white">
+                <div className="w-[140px] sm:w-[180px] xl:w-1/4 rounded-xl overflow-hidden shadow-paper border border-slate-200 bg-white flex-shrink-0 xl:flex-shrink">
                   <img src="/caregiver_patient.jpg" alt="Caregiver support" className="w-full h-full object-cover" />
                 </div>
-                <div className="w-1/4 rounded-xl overflow-hidden shadow-paper border border-slate-200 bg-white p-2">
+                <div className="w-[140px] sm:w-[180px] xl:w-1/4 rounded-xl overflow-hidden shadow-paper border border-slate-200 bg-white p-2 flex-shrink-0 xl:flex-shrink">
                   <img src="/app_mockup.jpg" alt="Mood tracker app" className="w-full h-full object-contain" />
                 </div>
-                <div className="w-1/4 rounded-xl overflow-hidden shadow-paper border border-slate-200 bg-white">
+                <div className="w-[140px] sm:w-[180px] xl:w-1/4 rounded-xl overflow-hidden shadow-paper border border-slate-200 bg-white flex-shrink-0 xl:flex-shrink">
                   <img src="/candles.jpg" alt="Lighting candles for hope" className="w-full h-full object-cover" />
                 </div>
               </div>
@@ -866,9 +896,9 @@ export default function Home() {
         <div className="mx-auto max-w-[1400px] px-6">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
 
-            <div className="flex items-center gap-6">
-              <div className="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0">
-                <svg className="w-8 h-8 text-white/90" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21a9 9 0 01-9-9 9 9 0 019-9 9 9 0 019 9 9 9 0 01-9 9m0-16.5A7.5 7.5 0 004.5 12a7.5 7.5 0 007.5 7.5 7.5 7.5 0 007.5-7.5 7.5 7.5 0 00-7.5-7.5z" /></svg>
+            <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full border border-white/20 flex items-center justify-center flex-shrink-0">
+                <svg className="w-6 h-6 sm:w-8 sm:h-8 text-white/90" fill="currentColor" viewBox="0 0 24 24"><path d="M12 21a9 9 0 01-9-9 9 9 0 019-9 9 9 0 019 9 9 9 0 01-9 9m0-16.5A7.5 7.5 0 004.5 12a7.5 7.5 0 007.5 7.5 7.5 7.5 0 007.5-7.5 7.5 7.5 0 00-7.5-7.5z" /></svg>
               </div>
               <div>
                 <h3 className="font-serif font-black text-xl mb-1">We don't treat cancer.</h3>
@@ -876,14 +906,14 @@ export default function Home() {
               </div>
             </div>
 
-            <div className="flex-1 lg:pl-12 lg:border-l border-white/20">
-              <p className="text-[14px] leading-relaxed font-medium max-w-2xl">
+            <div className="flex-1 pt-6 lg:pt-0 border-t lg:border-t-0 lg:pl-12 lg:border-l border-white/10 lg:border-white/20 text-center lg:text-left w-full lg:w-auto">
+              <p className="text-[14px] leading-relaxed font-medium max-w-2xl mx-auto lg:mx-0">
                 Our certified onco coaches transform your difficult journey into a painless path with holistic care and compassion.
               </p>
             </div>
 
-            <div className="flex-shrink-0">
-              <a href="#download" className="inline-flex h-12 items-center justify-center rounded-lg border-2 border-white/30 hover:border-white px-8 text-[13px] font-bold text-white transition-colors">
+            <div className="flex-shrink-0 w-full sm:w-auto text-center">
+              <a href="#download" className="inline-flex h-12 w-full sm:w-auto items-center justify-center rounded-lg border-2 border-white/30 hover:border-white px-8 text-[13px] font-bold text-white transition-colors">
                 Download the OM App &rarr;
               </a>
             </div>
@@ -896,10 +926,10 @@ export default function Home() {
       <footer id="contact" className="relative z-10 border-t border-slate-150 bg-white pt-20 pb-12 text-sm text-slate-500">
         <div className="mx-auto max-w-[1400px] px-6">
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-slate-200/60 text-left">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-12 gap-10 pb-12 border-b border-slate-200/60 text-left">
 
             {/* Logo/Info Col */}
-            <div className="lg:col-span-3 flex flex-col gap-4">
+            <div className="lg:col-span-5 flex flex-col gap-4">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-full border border-om-400/20 bg-white flex items-center justify-center overflow-hidden">
                   <img src="/logo.png" alt="OM Logo" className="w-full h-full object-cover" />
@@ -918,7 +948,7 @@ export default function Home() {
             </div>
 
             {/* Quick Links */}
-            <div className="lg:col-span-2 flex flex-col gap-3">
+            <div className="lg:col-span-3 flex flex-col gap-3">
               <h4 className="font-bold text-slate-800 text-[10px] uppercase tracking-widest mb-1">Quick Links</h4>
               <ul className="flex flex-col gap-2.5 text-[10px] font-bold">
                 <li><a href="#" className="hover:text-[#422C7C] transition-colors">Home</a></li>
@@ -926,50 +956,12 @@ export default function Home() {
                 <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Our Services</a></li>
                 <li><a href="#how-it-works" className="hover:text-[#422C7C] transition-colors">For Patients</a></li>
                 <li><a href="#community" className="hover:text-[#422C7C] transition-colors">OM Community</a></li>
-                <li><a href="#resources" className="hover:text-[#422C7C] transition-colors">Resources</a></li>
                 <li><a href="#contact" className="hover:text-[#422C7C] transition-colors">Contact Us</a></li>
               </ul>
             </div>
 
-            {/* Our Services */}
-            <div className="lg:col-span-2 flex flex-col gap-3">
-              <h4 className="font-bold text-slate-800 text-[10px] uppercase tracking-widest mb-1">Our Services</h4>
-              <ul className="flex flex-col gap-2.5 text-[10px] font-bold">
-                <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Counselling &amp; Guidance</a></li>
-                <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Nutrition &amp; Diet Planning</a></li>
-                <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Yoga &amp; Meditation</a></li>
-                <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Alternative Therapies</a></li>
-                <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Art Therapy</a></li>
-                <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Music Therapy</a></li>
-                <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Sound Healing</a></li>
-                <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Mood Tracker</a></li>
-                <li><a href="#services" className="hover:text-[#422C7C] transition-colors">Books &amp; Journals</a></li>
-              </ul>
-            </div>
-
-            {/* OM Community / Resources */}
-            <div className="lg:col-span-2 flex flex-col gap-3">
-              <h4 className="font-bold text-slate-800 text-[10px] uppercase tracking-widest mb-1">OM Community</h4>
-              <ul className="flex flex-col gap-2.5 text-[10px] font-bold mb-4">
-                <li><a href="#community" className="hover:text-[#422C7C] transition-colors">Community Home</a></li>
-                <li><a href="#community" className="hover:text-[#422C7C] transition-colors">Support Groups</a></li>
-                <li><a href="#community" className="hover:text-[#422C7C] transition-colors">Events &amp; Workshops</a></li>
-                <li><a href="#community" className="hover:text-[#422C7C] transition-colors">Stories</a></li>
-                <li><a href="#community" className="hover:text-[#422C7C] transition-colors">Caregiver Corner</a></li>
-              </ul>
-
-              <h4 className="font-bold text-slate-800 text-[10px] uppercase tracking-widest mb-1">Resources</h4>
-              <ul className="flex flex-col gap-2.5 text-[10px] font-bold">
-                <li><a href="#" className="hover:text-[#422C7C] transition-colors">Blog</a></li>
-                <li><a href="#" className="hover:text-[#422C7C] transition-colors">Articles</a></li>
-                <li><a href="#" className="hover:text-[#422C7C] transition-colors">Videos</a></li>
-                <li><a href="#" className="hover:text-[#422C7C] transition-colors">Guides</a></li>
-                <li><a href="#" className="hover:text-[#422C7C] transition-colors">FAQs</a></li>
-              </ul>
-            </div>
-
             {/* Contact Details */}
-            <div className="lg:col-span-3 flex flex-col gap-4 text-xs">
+            <div className="lg:col-span-4 flex flex-col gap-4 text-xs">
               <h4 className="font-bold text-slate-800 text-[10px] uppercase tracking-widest mb-1">Contact Us</h4>
 
               <div className="flex gap-2">
